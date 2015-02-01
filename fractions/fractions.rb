@@ -4,8 +4,8 @@ puts
 puts "Fractions converter."
 puts
 
-value = Readline.readline('Enter a number: ', true).to_r
-puts "Value = #{value}, #{value.to_f}"
+value = eval(Readline.readline('Enter a numeric expression: ', true))
+puts "Value = #{value.to_f}"
 
 step_size = Rational(1,1)
 result = Rational(value.to_i,1)
@@ -32,5 +32,5 @@ while result.to_f != value.to_f
 end
 
 puts
-puts "****** RESULTS ******"
+puts "****** RESULTS IN BINARY ******"
 puts "#{bin}"
