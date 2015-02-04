@@ -7,8 +7,11 @@ puts "With IO.console"
 puts IO.console.inspect
 puts "IO.console.winsize #does not work!"
 puts
+
 puts "With STDOUT"
 puts STDOUT.inspect
+
+#This actually works and is quite useful!
 puts "winsize = #{STDOUT.winsize.inspect}"
 
 puts
