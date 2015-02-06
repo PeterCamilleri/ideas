@@ -1,0 +1,44 @@
+C:\Sites\ideas\descendants>git --no-pager diff --no-index --no-color Exception_class_tree_Ruby_1_9_3.txt Exception_class_tree_Ruby_2_1_5.txt
+
+diff --git a/Exception_class_tree_Ruby_1_9_3.txt b/Exception_class_tree_Ruby_2_1_5.txt
+
+index e085fac..dcf7f2a 100644
+
+--- a/Exception_class_tree_Ruby_1_9_3.txt
++++ b/Exception_class_tree_Ruby_2_1_5.txt
+
+@@ -51,6 +51,7 @@ Exception
+         Gem::RemoteInstallationCancelled
+         Gem::RemoteInstallationSkipped
+         Gem::RemoteSourceException
++        Gem::RubyVersionMismatch
+         Gem::UnsatisfiableDependencyError
+         Gem::VerificationError
+     SystemCallError
+@@ -60,6 +61,8 @@ Exception
+       Errno::EADDRNOTAVAIL
+       Errno::EAFNOSUPPORT
+       Errno::EAGAIN
++        IO::EAGAINWaitReadable
++        IO::EAGAINWaitWritable
+       Errno::EALREADY
+       Errno::EBADF
+       Errno::EBUSY
+@@ -78,6 +81,8 @@ Exception
+       Errno::EHOSTUNREACH
+       Errno::EILSEQ
+       Errno::EINPROGRESS
++        IO::EINPROGRESSWaitReadable
++        IO::EINPROGRESSWaitWritable
+       Errno::EINTR
+       Errno::EINVAL
+       Errno::EIO
+@@ -126,6 +131,8 @@ Exception
+       Errno::ETOOMANYREFS
+       Errno::EUSERS
+       Errno::EWOULDBLOCK
++        IO::EWOULDBLOCKWaitReadable
++        IO::EWOULDBLOCKWaitWritable
+       Errno::EXDEV
+       Errno::NOERROR
+     ThreadError
