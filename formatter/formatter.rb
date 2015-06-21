@@ -1,14 +1,18 @@
 require 'English'
 require 'PP'
 
-# Format specifier syntax:
+require_relative 'literal'
+require_relative 'variable'
+
+
+# Format specifier syntax (BNF):
 #
 # "%" {flag}* {parm {"." parm}?}? {command}
 #
 # flag = { "~" | "@" | "#" | "&" | "^"  |
 #          "&" | "*" | "-" | "+" | "="  |
 #          "?" | "_" | "<" | ">" | "\\" |
-#          "/" | "." | "," | "|"}
+#          "/" | "." | "," | "|" }
 #
 # parm = { "0" .. "9" }+
 #
@@ -16,32 +20,40 @@ require 'PP'
 
 class FormatEngine
 
-  attr_reader :spec_string # why? is this needed?
-  attr_reader :specs
+  @motor_pool = {}
 
-  def initialize(spec_string)
-    @spec_string = spec_string
-    @specs = []
-    scan_spec(@spec_string, @specs)
+  private_class_method :new
+
+  def self.get_engine(spec)
+    @motor_pool[spec] ||= new(spec)
   end
 
-  def scan_spec(spec, specs)
-    until spec == ""
-      if spec =~ /%[~@#$^&*\-+=?_<>\\\/\.,\|]*(\d+(\.\d+)?)?[a-zA-Z]/
-        specs << $PREMATCH
-        specs << $MATCH
-        spec  =  $POSTMATCH
+  attr_reader :spec   # Why is this needed? Debug? Maybe?
+  attr_reader :engine
+
+  def initialize(spec)
+    @spec = spec
+    @engine = []
+    scan_spec(@spec, @engine)
+  end
+
+  def scan_spec(spec_string, engine_array)
+    until spec_string == ""
+      if spec_string =~ /%[~@#$^&*\-+=?_<>\\\/\.,\|]*(\d+(\.\d+)?)?[a-zA-Z]/
+        engine_array << FormatLiteral.new($PREMATCH)
+        engine_array << FormatVariable.new($MATCH)
+        spec_string  =  $POSTMATCH
       else
-        specs << spec
-        spec = ""
+        engine_array << FormatLiteral.new(spec)
+        spec_string = ""
       end
     end
   end
 
-
 end
 
 
-test = FormatEngine.new "Elapsed = %*3.4H:%M:%S"
+test = FormatEngine.get_engine "Elapsed = %*03.4H:%M:%S"
 
-pp test.specs
+pp test.engine
+
