@@ -4,10 +4,11 @@ require 'PP'
 require_relative 'literal'
 require_relative 'variable'
 
-
-# Format specifier syntax (BNF):
+# Format Specification Syntax (BNF):
 #
-# "%" {flag}* {parm {"." parm}?}? {command}
+# spec = { text | item }+
+#
+# item = "%" {flag}* {parm {"." parm}?}? {command}
 #
 # flag = { "~" | "@" | "#" | "&" | "^"  |
 #          "&" | "*" | "-" | "+" | "="  |
@@ -18,42 +19,42 @@ require_relative 'variable'
 #
 # command = { "a" .. "z" | "A" .. "Z"}
 
-class FormatEngine
+class FormatSpec
 
-  @motor_pool = {}
+  @spec_pool = {}
 
+  # Don't use new, use get_spec instead.
   private_class_method :new
 
-  def self.get_engine(spec)
-    @motor_pool[spec] ||= new(spec)
+  def self.get_spec(fmt_string)
+    @spec_pool[fmt_string] ||= new(fmt_string)
   end
 
-  attr_reader :spec   # Why is this needed? Debug? Maybe?
-  attr_reader :engine
+  attr_reader :spec
 
-  def initialize(spec)
-    @spec = spec
-    @engine = []
-    scan_spec(@spec, @engine)
+  def initialize(fmt_string)
+    @spec = []
+    scan_spec(fmt_string, @spec)
   end
 
-  def scan_spec(spec_string, engine_array)
-    until spec_string == ""
-      if spec_string =~ /%[~@#$^&*\-+=?_<>\\\/\.,\|]*(\d+(\.\d+)?)?[a-zA-Z]/
-        engine_array << FormatLiteral.new($PREMATCH)
-        engine_array << FormatVariable.new($MATCH)
-        spec_string  =  $POSTMATCH
+  def scan_spec(fmt_string, spec_array)
+    until fmt_string == ""
+      if fmt_string =~ /%[~@#$^&*\-+=?_<>\\\/\.,\|]*(\d+(\.\d+)?)?[a-zA-Z]/
+        spec_array << FormatLiteral.new($PREMATCH)
+        spec_array << FormatVariable.new($MATCH)
+        fmt_string  =  $POSTMATCH
       else
-        engine_array << FormatLiteral.new(spec)
-        spec_string = ""
+        spec_array << FormatLiteral.new(fmt_string)
+        fmt_string = ""
       end
     end
   end
 
 end
 
+spec = "Elapsed = %*03.1H:%M:%S!"
+test = FormatSpec.get_spec spec
 
-test = FormatEngine.get_engine "Elapsed = %*03.4H:%M:%S"
-
-pp test.engine
+puts "Specification for #{spec.inspect} is"
+pp test.spec
 
