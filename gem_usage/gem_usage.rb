@@ -1,4 +1,4 @@
-require 'net/http'
+require 'net/https'
 require 'json'
 
 gem_name = "active_record"
@@ -8,7 +8,13 @@ puts
 
 def rubygems_get(gem_name: "", endpoint: "")
   path = File.join("/api/v1/gems/", gem_name, endpoint).chomp("/") + ".json"
-  JSON.parse(Net::HTTP.get("rubygems.org", path))
+
+  if (read_data = Net::HTTP.get("rubygems.org", path)).empty?
+    puts "No data returned for query of \n #{path}"
+    exit
+  end
+
+  JSON.parse(read_data)
 end
 
 results = rubygems_get(gem_name: gem_name, endpoint: "reverse_dependencies")
