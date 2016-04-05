@@ -10,12 +10,21 @@ end
 
 s = "bar"
 
-puts "s is a #{s.class}."
+puts "s (#{s}) is a #{s.class}."
 
 f = Foo.new("foo")
 
-puts "f is a #{f.class}."
+puts "f (#{f}) is a #{f.class}."
 
 f << "bar"
 
-puts "f is a #{f.class}."
+puts "f (#{f}) is a #{f.class}."
+
+g = f[1...-1]
+
+puts "g (#{g}) is a #{g.class}."
+
+h = f.to_s
+
+puts "h (#{h}) is a #{h.class}."
+
