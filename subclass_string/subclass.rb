@@ -28,3 +28,10 @@ h = f.to_s
 
 puts "h (#{h}) is a #{h.class}."
 
+# Outputs the following:
+
+# s (bar) is a String.
+# f (foo) is a Foo.
+# f (foobar) is a Foo.
+# g (ooba) is a Foo.
+# h (foobar) is a String.
