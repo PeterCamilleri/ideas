@@ -1,7 +1,7 @@
 #A study of sub-classing the String class and the propogation
 #of the frozen state.
 
-class BahBar < String
+class StringBuffer < String
 
   def initialize(text)
     super(text.to_s.dup)
@@ -9,7 +9,7 @@ class BahBar < String
 
 end
 
-s = "bar".freeze
+s = "333".freeze
 puts "s is a #{s.class}. Frozen? (#{s.frozen?}) Value: (#{s})"
 
 t = s.dup
@@ -21,13 +21,13 @@ puts "u is a #{u.class}. Frozen? (#{u.frozen?}) Value: (#{u})"
 v = s.to_s
 puts "v is a #{v.class}. Frozen? (#{v.frozen?}) Value: (#{v})"
 
-x = (s + "abas").freeze
+x = (s + "4444").freeze
 puts "x is a #{x.class}. Frozen? (#{x.frozen?}) Value: (#{x})"
 
 y = x[1...-1]
 puts "y[1...-1] is a #{y.class}. Frozen? (#{y.frozen?}) Value: (#{y})"
 
-f = BahBar.new(s)
+f = StringBuffer.new(s)
 puts "f is a #{f.class}. Frozen? (#{f.frozen?}) Value: (#{s})"
 
 f << s
@@ -41,13 +41,14 @@ puts "h is a #{h.class}. Frozen? (#{h.frozen?}) Value: (#{h})"
 
 # Outputs the following:
 
-# s is a String. Frozen? (true) Value: (bar)
-# t is a String. Frozen? (false) Value: (bar)
-# u is a String. Frozen? (true) Value: (bar)
-# v is a String. Frozen? (true) Value: (bar)
-# x is a String. Frozen? (true) Value: (barabas)
-# y[1...-1] is a String. Frozen? (false) Value: (araba)
-# f is a BahBar. Frozen? (false) Value: (bar)
-# f is a BahBar. Frozen? (false) Value: (barbar)
-# g[1...-1] is a BahBar. Frozen? (false) Value: (arba)
-# h is a String. Frozen? (true) Value: (barbar)
+# s is a String. Frozen? (true) Value: (333)
+# t is a String. Frozen? (false) Value: (333)
+# u is a String. Frozen? (true) Value: (333)
+# v is a String. Frozen? (true) Value: (333)
+# x is a String. Frozen? (true) Value: (3334444)
+# y[1...-1] is a String. Frozen? (false) Value: (33444)
+# f is a StringBuffer. Frozen? (false) Value: (333)
+# f is a StringBuffer. Frozen? (false) Value: (333333)
+# g[1...-1] is a StringBuffer. Frozen? (false) Value: (3333)
+# h is a String. Frozen? (true) Value: (333333)
+
