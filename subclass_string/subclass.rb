@@ -25,6 +25,14 @@ v = s.to_s
 puts "v is a #{v.class}. Frozen? (#{v.frozen?}) Value: (#{v})"
 # v is a String. Frozen? (true) Value: (333)
 
+w = (s + "4444")
+puts "w is a #{w.class}. Frozen? (#{w.frozen?}) Value: (#{w})"
+# w is a String. Frozen? (false) Value: (3334444)
+
+r = (s + "4444".freeze)
+puts "r is a #{r.class}. Frozen? (#{r.frozen?}) Value: (#{r})"
+# w is a String. Frozen? (false) Value: (3334444)
+
 x = (s + "4444").freeze
 puts "x is a #{x.class}. Frozen? (#{x.frozen?}) Value: (#{x})"
 # x is a String. Frozen? (true) Value: (3334444)
@@ -48,3 +56,7 @@ puts "g[1...-1] is a #{g.class}. Frozen? (#{g.frozen?}) Value: (#{g})"
 h = f.to_s.freeze
 puts "h is a #{h.class}. Frozen? (#{h.frozen?}) Value: (#{h})"
 # h is a String. Frozen? (true) Value: (333333)
+
+i = f.to_s.freeze
+puts "i is a #{i.class}. Frozen? (#{i.frozen?}) Value: (#{i})"
+#i is a String. Frozen? (true) Value: (333333)
