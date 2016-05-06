@@ -4,13 +4,12 @@ require 'pp'
 
 module Scrambler
 
-  def self.scramble(input_string, window, prng, fill_char=' ')
-    prepare_input(input_string)
+  def self.scramble(input_string, window, prng)
     @window = window
     @prng   = prng
-
-    @fill   = fill_char.bytes[0]
     @processed = 0
+
+    prepare_input(input_string)
 
     do_scramble
   end
@@ -20,6 +19,10 @@ module Scrambler
 
     len = input_bytes.length
     len_bytes = "#{len};".bytes
+
+    pad = @prng.rand @window
+
+    pad.times { input_bytes << generate_padding }
 
     @input = len_bytes + input_bytes
     @length = @input.length
@@ -49,7 +52,7 @@ module Scrambler
   end
 
   def self.generate_padding
-    @fill
+    @fill ||= ' '.bytes[0]
   end
 
 end
