@@ -35,8 +35,6 @@ module Scrambler
       top_up
 
       $indexes << index = @prng.rand(@window)
-
-      #result << (@input.delete_at(index) ^ @prng.rand(256))
       result << (@input.delete_at(index))
 
       @processed += 1 if (index + @processed) < @length
