@@ -5,16 +5,24 @@ require 'pp'
 module Scrambler
 
   def self.scramble(input_string, window, prng, fill_char=' ')
-    @input  = input_string.bytes
+    prepare_input(input_string)
     @window = window
     @prng   = prng
 
     @fill   = fill_char.bytes[0]
-
-    @length = @input.length
     @processed = 0
 
     do_scramble
+  end
+
+  def self.prepare_input(input_string)
+    input_bytes = input_string.bytes
+
+    len = input_bytes.length
+    len_bytes = "#{len};".bytes
+
+    @input = len_bytes + input_bytes
+    @length = @input.length
   end
 
   def self.do_scramble
