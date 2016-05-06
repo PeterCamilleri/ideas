@@ -44,10 +44,13 @@ module Scrambler
 
   def self.top_up
     while @input.length < @window
-      @input << @fill
+      pad_input
     end
   end
 
+  def self.pad_input
+    @input << @fill
+  end
 
 end
 
