@@ -52,7 +52,7 @@ module Scrambler
   end
 
   def self.generate_padding
-    @fill ||= ' '.bytes[0]
+    @fill ||= '*'.bytes[0]
   end
 
 end
