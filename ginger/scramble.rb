@@ -34,7 +34,7 @@ module Scrambler
     while @processed < @length
       top_up
 
-      index = @prng.rand(@window)
+      $indexes << index = @prng.rand(@window)
 
       #result << (@input.delete_at(index) ^ @prng.rand(256))
       result << (@input.delete_at(index))
@@ -57,9 +57,11 @@ module Scrambler
 
 end
 
+$indexes = []
 $plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 puts "Plain text = #{$plain_text.inspect}"
 $key = 1234
 puts "Key = #{$key}"
 $scramble_text = Scrambler.scramble($plain_text, 8, Random.new($key))
-puts  "Scramble text = #{$scramble_text.inspect}"
+puts "Scramble text = #{$scramble_text.inspect}"
+puts "Indexes = #{$indexes.inspect}"
