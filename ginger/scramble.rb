@@ -60,8 +60,10 @@ end
 $indexes = []
 $plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 puts "Plain text = #{$plain_text.inspect}"
+$window = 8
+puts "Window = #{$window}"
 $key = 1234
 puts "Key = #{$key}"
-$scramble_text = Scrambler.scramble($plain_text, 8, Random.new($key))
+$scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
 puts "Scramble text = #{$scramble_text.inspect}"
 puts "Indexes = #{$indexes.inspect}"
