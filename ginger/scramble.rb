@@ -43,8 +43,8 @@ module Scrambler
 
 end
 
-pp test_str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-pp Scrambler.scramble(test_str, 8, Random.new(1234))
-
-
-
+$plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+puts "Plain text = #{$plain_text.inspect}"
+puts "Key = #{$key = 1234}"
+$scramble_text = Scrambler.scramble($plain_text, 8, Random.new($key))
+puts  "Scramble text = #{$scramble_text.inspect}"
