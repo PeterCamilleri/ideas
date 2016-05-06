@@ -56,6 +56,7 @@ end
 
 $plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 puts "Plain text = #{$plain_text.inspect}"
-puts "Key = #{$key = 1234}"
+$key = 1234
+puts "Key = #{$key}"
 $scramble_text = Scrambler.scramble($plain_text, 8, Random.new($key))
 puts  "Scramble text = #{$scramble_text.inspect}"
