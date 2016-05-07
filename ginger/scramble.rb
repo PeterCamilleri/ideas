@@ -1,7 +1,5 @@
 #Test scrambling up some data.
 
-require 'pp'
-
 module Scrambler
 
   def self.scramble(input_string, window, prng)
@@ -34,7 +32,7 @@ module Scrambler
     while @processed < @length
       top_up
 
-      $indexes << index = @prng.rand(@window)
+      index = @prng.rand(@window)
       result << (@input.delete_at(index))
 
       @processed += 1 if (index + @processed) < @length
@@ -55,7 +53,6 @@ module Scrambler
 
 end
 
-$indexes = []
 $plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 puts "Plain text = #{$plain_text.inspect}"
 $window = 8
