@@ -13,8 +13,8 @@ module Scrambler
   #Get the data formatted for scrambling.
   def self.prepare_input(input_string)
     body = input_string.bytes
-    len = body.length
-    len_bytes = "#{len};".bytes
+
+    len_bytes = "#{body.length};".bytes
     pad = @generator.rand @window
 
     pad.times { body << generate_padding }
