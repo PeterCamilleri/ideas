@@ -14,12 +14,12 @@ module Scrambler
   def self.prepare_input(input_string)
     body = input_string.bytes
 
-    len_bytes = "#{body.length};".bytes
+    prefix = "#{body.length};".bytes
     pad = @generator.rand @window
 
     pad.times { body << generate_padding }
 
-    @input = len_bytes + body
+    @input = prefix + body
     @length = @input.length
   end
 
