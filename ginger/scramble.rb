@@ -12,13 +12,11 @@ module Scrambler
 
   #Get the data formatted for scrambling.
   def self.prepare_input(input_string)
-    body = input_string.bytes
+    body    = input_string.bytes
+    prefix  = "#{body.length};".bytes
+    suffix  = Array.new(@generator.rand(@window)) { generate_padding }
 
-    prefix = "#{body.length};".bytes
-
-    @generator.rand(@window).times { body << generate_padding }
-
-    @input = prefix + body
+    @input  = prefix + body + suffix
     @length = @input.length
   end
 
