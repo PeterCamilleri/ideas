@@ -19,7 +19,7 @@ module Arranger
 
   #Put bytes back into order.
   def self.do_arrange
-    result = Array.new(@input.length, 32)
+    result = Array.new(@input.length + @window, 32)
 
     @generator.rand @window   #We must stay in sync.
 
