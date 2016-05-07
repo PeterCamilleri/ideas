@@ -1,3 +1,4 @@
+#Test put data back into order.
 
 require_relative 'scramble'
 
@@ -53,4 +54,3 @@ puts "Window = #{$window}"
 puts "Key = #{$key}"
 $recovered_text = Arranger.arrange($scramble_text, $window, Random.new($key))
 puts "Recovered text = #{$recovered_text.inspect}"
-

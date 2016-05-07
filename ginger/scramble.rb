@@ -6,18 +6,14 @@ module Scrambler
     @window = window
     @prng   = prng
     @processed = 0
-
     prepare_input(input_string)
-
     do_scramble
   end
 
   def self.prepare_input(input_string)
     input_bytes = input_string.bytes
-
     len = input_bytes.length
     len_bytes = "#{len};".bytes
-
     pad = @prng.rand @window
 
     pad.times { input_bytes << generate_padding }
@@ -50,7 +46,6 @@ module Scrambler
   def self.generate_padding
     @fill ||= '*'.bytes[0]
   end
-
 end
 
 $plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -61,4 +56,3 @@ $key = 1234
 puts "Key = #{$key}"
 $scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
 puts "Scramble text = #{$scramble_text.inspect}"
-puts "Indexes = #{$indexes.inspect}"
