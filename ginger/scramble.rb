@@ -15,9 +15,8 @@ module Scrambler
     body = input_string.bytes
 
     prefix = "#{body.length};".bytes
-    pad = @generator.rand @window
 
-    pad.times { body << generate_padding }
+    @generator.rand(@window).times { body << generate_padding }
 
     @input = prefix + body
     @length = @input.length
