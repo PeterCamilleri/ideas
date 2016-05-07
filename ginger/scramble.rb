@@ -2,9 +2,10 @@
 
 module Scrambler
 
-  def self.scramble(input_string, window, generator)
+  def self.scramble(input_string, window, generator, filler=Random.new)
     @window = window
     @generator = generator
+    @filler    = filler
     @processed = 0
     prepare_input(input_string)
     do_scramble
@@ -43,7 +44,7 @@ module Scrambler
   end
 
   def self.generate_padding
-    @fill ||= '*'.bytes[0]
+    65 + @filler.rand(26)
   end
 end
 
