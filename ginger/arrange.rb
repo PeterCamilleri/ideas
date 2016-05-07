@@ -4,9 +4,9 @@ require_relative 'scramble'
 
 module Arranger
 
-  def self.arrange(input_string, window, prng)
+  def self.arrange(input_string, window, generator)
     @window = window
-    @prng   = prng
+    @generator = generator
     @processed = 0
 
     @input = input_string.bytes
@@ -20,10 +20,10 @@ module Arranger
 
   def self.do_arrange
     result = Array.new(@input.length, 32)
-    _pad = @prng.rand @window   #Value not used, but we must stay in sync.
+    _pad = @generator.rand @window   #Value not used, but we must stay in sync.
 
     @input.each do | value |
-      index = @prng.rand @window
+      index = @generator.rand @window
       result[@offsets[index]] = value
 
       @offsets.delete_at(index)

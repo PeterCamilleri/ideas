@@ -2,9 +2,9 @@
 
 module Scrambler
 
-  def self.scramble(input_string, window, prng)
+  def self.scramble(input_string, window, generator)
     @window = window
-    @prng   = prng
+    @generator = generator
     @processed = 0
     prepare_input(input_string)
     do_scramble
@@ -14,7 +14,7 @@ module Scrambler
     input_bytes = input_string.bytes
     len = input_bytes.length
     len_bytes = "#{len};".bytes
-    pad = @prng.rand @window
+    pad = @generator.rand @window
 
     pad.times { input_bytes << generate_padding }
 
@@ -28,7 +28,7 @@ module Scrambler
     while @processed < @length
       top_up
 
-      index = @prng.rand(@window)
+      index = @generator.rand(@window)
       result << (@input.delete_at(index))
 
       @processed += 1 if (index + @processed) < @length
