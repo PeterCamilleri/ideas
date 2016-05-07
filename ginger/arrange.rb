@@ -18,6 +18,7 @@ module Arranger
     extract_output(output_string)
   end
 
+  #Put bytes back into order.
   def self.do_arrange
     result = Array.new(@input.length, 32)
     _pad = @generator.rand @window   #Value not used, but we must stay in sync.
@@ -34,6 +35,7 @@ module Arranger
     result.pack "C*"
   end
 
+  #Extract the data from the formatted record.
   def self.extract_output(output_string)
     if /^\d+;/ =~ output_string
       true_len = $&.to_i

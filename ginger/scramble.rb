@@ -10,6 +10,7 @@ module Scrambler
     do_scramble
   end
 
+  #Get the data formatted for scrambling.
   def self.prepare_input(input_string)
     input_bytes = input_string.bytes
     len = input_bytes.length
@@ -22,6 +23,7 @@ module Scrambler
     @length = @input.length
   end
 
+  #Put bytes into disorder.
   def self.do_scramble
     result = []
 
