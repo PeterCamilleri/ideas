@@ -33,7 +33,7 @@ module Scrambler
       @processed += 1 if (index + @processed) < @length
     end
 
-    result.pack "C*"
+    result.pack("C*")
   end
 
   def self.top_up
@@ -47,11 +47,10 @@ module Scrambler
   end
 end
 
-$plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-puts "Plain text = #{$plain_text.inspect}"
-$window = 8
-puts "Window = #{$window}"
-$key = 1234
-puts "Key = #{$key}"
+puts; puts '-' * 50; puts
+puts "Plain text = #{($plain_text = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ').inspect}"
+puts "Window = #{($window = 8)}"
+puts "Key = #{($key = 1234)}"
+puts; puts '-' * 50; puts
 $scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
 puts "Scramble text = #{$scramble_text.inspect}"
