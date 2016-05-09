@@ -37,8 +37,8 @@ module Arranger
 
   #Extract the data from the formatted record.
   def self.extract_output(output_string)
-    if /^\d+;/ =~ output_string
-      $POSTMATCH[0...($MATCH.to_i)]
+    if /^[0-9a-z]+;/ =~ output_string
+      $POSTMATCH[0...($MATCH.to_i(36))]
     else
       fail "Unable to unscramble data."
     end
