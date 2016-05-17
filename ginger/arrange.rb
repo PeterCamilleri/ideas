@@ -48,4 +48,4 @@ end
 
 puts; puts '-' * 50; puts
 $recovered_text = Arranger.arrange($scramble_text, $window, Random.new($key))
-puts "Recovered text = #{$recovered_text.inspect}"
+puts "Recovered text = \n#{$recovered_text}"
