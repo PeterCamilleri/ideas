@@ -31,7 +31,7 @@ module Scrambler
       top_up
 
       index = @generator.rand(@window)
-      result << (@data.delete_at(index))
+      result << @data.delete_at(index)
 
       @processed += 1 if (index + @processed) < @length
     end
