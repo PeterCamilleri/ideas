@@ -54,4 +54,4 @@ puts "Plain text = \n#{($plain_text = IO.read("test.txt"))}"
 puts; puts "Window = #{($window = 16)}"; puts "Key = #{($key = 1234567890)}"
 puts; puts '-' * 50; puts
 $scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
-puts "Scramble text = \n#{$scramble_text}"
+puts "Scramble text = \n#{$scramble_text.inspect}"
