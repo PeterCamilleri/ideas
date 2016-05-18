@@ -21,8 +21,6 @@ module Arranger
   def self.do_arrange
     result = Array.new(@input.length + @window, 32)
 
-    @generator.rand @window   #We must stay in sync.
-
     @input.each do | value |
       index = @generator.rand @window
       result[@offsets[index]] = value
@@ -40,7 +38,8 @@ module Arranger
     if /^[0-9a-z]+;/ =~ output_string
       $POSTMATCH[0...($MATCH.to_i(36))]
     else
-      fail "Unable to unscramble data."
+      output_string
+      #fail "Unable to unscramble data."
     end
   end
 

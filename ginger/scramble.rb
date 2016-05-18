@@ -2,8 +2,8 @@
 
 module Scrambler
 
-  def self.scramble(input_string, window, generator, filler=Random.new)
-    @window = window
+  def self.scramble(input_string, window, generator, filler = lambda {32 + rand(95)})
+    @window    = window
     @generator = generator
     @filler    = filler
     @processed = 0
@@ -15,9 +15,8 @@ module Scrambler
   def self.prepare_input(input_string)
     body    = input_string.bytes
     prefix  = "#{body.length.to_s(36)};".bytes
-    suffix  = Array.new(@generator.rand(@window)) { generate_padding }
 
-    @input  = prefix + body + suffix
+    @input  = prefix + body
     @length = @input.length
   end
 
@@ -39,13 +38,10 @@ module Scrambler
 
   def self.top_up
     while @input.length < @window
-      @input << generate_padding
+      @input << @filler.call
     end
   end
 
-  def self.generate_padding
-    32 + @filler.rand(95)
-  end
 end
 
 puts; puts '-' * 50; puts
