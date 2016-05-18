@@ -7,6 +7,9 @@ module Scrambler
     @generator = generator
     @filler    = filler
     @processed = 0
+    @data      = []
+    @offset    = 0
+
     prepare_input(input_string)
     do_scramble
   end
@@ -28,7 +31,7 @@ module Scrambler
       top_up
 
       index = @generator.rand(@window)
-      result << (@input.delete_at(index))
+      result << (@data.delete_at(index))
 
       @processed += 1 if (index + @processed) < @length
     end
@@ -37,8 +40,9 @@ module Scrambler
   end
 
   def self.top_up
-    while @input.length < @window
-      @input << @filler.call
+    while @data.length < @window
+      @data << (@input[@offset] || @filler.call)
+      @offset += 1
     end
   end
 
