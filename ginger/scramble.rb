@@ -9,24 +9,20 @@ module Scrambler
     @processed = 0
 
     prepare_input(input_string)
-
-    @data      = @input[0...@window]
-    @offset    = @data.length
-
-    while @data.length < @window
-      @data << @filler.call
-    end
-
     do_scramble
   end
 
   #Get the data formatted for scrambling.
   def self.prepare_input(input_string)
     body    = input_string.bytes
-    prefix  = "#{body.length.to_s(36)};".bytes
-
-    @input  = prefix + body
+    @input  = "#{body.length.to_s(36)};".bytes + body
     @length = @input.length
+    @data   = @input[0...@window]
+    @offset = @data.length
+
+    while @data.length < @window
+      @data << @filler.call
+    end
   end
 
   #Put bytes into disorder.
