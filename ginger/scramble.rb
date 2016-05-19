@@ -7,10 +7,16 @@ module Scrambler
     @generator = generator
     @filler    = filler
     @processed = 0
-    @data      = []
-    @offset    = 0
 
     prepare_input(input_string)
+
+    @data      = @input[0...@window]
+    @offset    = @data.length
+
+    while @data.length < @window
+      @data << @filler.call
+    end
+
     do_scramble
   end
 
@@ -28,24 +34,17 @@ module Scrambler
     result = []
 
     while @processed < @length
-      top_up
-
       index = @generator.rand(@window)
       result << @data.delete_at(index)
+
+      @data << (@input[@offset] || @filler.call)
+      @offset += 1
 
       @processed += 1 if (index + @processed) < @length
     end
 
     result.pack("C*")
   end
-
-  def self.top_up
-    while @data.length < @window
-      @data << (@input[@offset] || @filler.call)
-      @offset += 1
-    end
-  end
-
 end
 
 puts; puts '-' * 50; puts

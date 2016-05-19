@@ -22,7 +22,7 @@ module Arranger
     result = Array.new(@input.length + @window, 32)
 
     @input.each do | value |
-      index = @generator.rand @window
+      index = @generator.rand(@window)
       result[@offsets[index]] = value
 
       @offsets.delete_at(index)
@@ -38,8 +38,7 @@ module Arranger
     if /^[0-9a-z]+;/ =~ output_string
       $POSTMATCH[0...($MATCH.to_i(36))]
     else
-      output_string
-      #fail "Unable to unscramble data."
+      fail "Unable to unscramble data."
     end
   end
 
