@@ -1,4 +1,4 @@
-#Test put data back into order.
+#Test putting data back into order.
 
 require 'English'
 require_relative 'scramble'
