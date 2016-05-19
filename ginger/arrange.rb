@@ -27,7 +27,7 @@ module Arranger
 
       @offsets.delete_at(index)
       @offsets << @offset
-      @offset = @offset.succ
+      @offset += 1
     end
 
     result.pack "C*"
