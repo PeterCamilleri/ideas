@@ -23,7 +23,7 @@ module Arranger
 
     @input.each do | value |
       index = @generator.rand(@window)
-      result[@offsets[index]] = value
+      result[@offsets[index]] = value ^ @generator.rand(256)
 
       @offsets.delete_at(index)
       @offsets << @offset

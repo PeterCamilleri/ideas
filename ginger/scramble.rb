@@ -31,7 +31,7 @@ module Scrambler
 
     while @processed < @length
       index = @generator.rand(@window)
-      result << @data.delete_at(index)
+      result << (@data.delete_at(index) ^ @generator.rand(256))
 
       @data << (@input[@offset] || @filler.call)
       @offset += 1
@@ -49,4 +49,4 @@ puts "Plain text = \n#{($plain_text = IO.read("test.txt"))}"
 puts; puts "Window = #{($window = 16)}"; puts "Key = #{($key = 1234567890)}"
 puts; puts '-' * 50; puts
 $scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
-puts "Scramble text = \n#{$scramble_text.inspect}"
+puts "Cypher text = \n#{$scramble_text.inspect}"
