@@ -45,7 +45,8 @@ end
 
 puts; puts '-' * 50; puts
 puts "Plain text = \n#{($plain_text = IO.read("test.txt"))}"
-puts; puts "Window = #{($window = 16)}"; puts "Key = #{($key = 'BB6AFB1C2D1E6F8E32DDAF1331677'.to_i(16))}"
+puts; puts "Window = #{($window = 16)}";
+puts "Key = #{($key = 'BB6AFB1C2D1E6F8E32DDAF1331677'.to_i(16))}"
 puts; puts '-' * 50; puts
 $scramble_text = Scrambler.scramble($plain_text, $window, Random.new($key))
 puts "Cypher text = \n#{$scramble_text.inspect}"
