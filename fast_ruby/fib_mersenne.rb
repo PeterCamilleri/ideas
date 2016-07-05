@@ -35,3 +35,30 @@ end
 # Comparison:
 # Generator with mersenne:        7.4 i/s
 # Generator with fibonacci:        0.3 i/s - 25.19x slower
+
+# Version 1.1.2
+#
+# Warming up --------------------------------------
+# Generator with fibonacci
+#                          1.000  i/100ms
+# Generator with mersenne
+#                          1.000  i/100ms
+# Calculating -------------------------------------
+# Generator with fibonacci
+#                           0.329  (± 0.0%) i/s -      2.000  in   6.073346s
+# Generator with mersenne
+#                           7.455  (± 0.0%) i/s -     38.000
+#
+# Comparison:
+# Generator with mersenne:        7.5 i/s
+# Generator with fibonacci:        0.3 i/s - 22.64x slower
+
+# Version 1.1.1 vs 1.1.2
+#
+# Generator with fibonacci 1.1.1
+#                           0.293  (± 0.0%) i/s -      2.000  in   6.823390s
+# Generator with fibonacci 1.1.2 (speed_up_one branch)
+#                           0.329  (± 0.0%) i/s -      2.000  in   6.073346s
+#
+# Version 1.1.1 is 1.123 times slower than 1.1.2
+#
