@@ -44,8 +44,8 @@ end
 # Generator with 1.1.1      0.294  (± 0.0%) i/s -      2.000  in   6.810018s
 # Generator with 1.1.2      0.327  (± 0.0%) i/s -      2.000  in   6.109018s
 # Generator with 1.1.3      0.439  (± 0.0%) i/s -      3.000  in   6.837015s
-# Generator with 9.9.9      4.346  (± 0.0%) i/s -     22.000
-# Don't get excited: version 9.9.9 - Nonfunctional - no spinner.
+# Generator with 1.2.0      4.345  (± 0.0%) i/s -     22.000
+# Generator with 9.9.9      4.346  (± 0.0%) i/s -     22.000  #No spinner.
 
 
 # RAW TEST RESULTS
@@ -73,7 +73,7 @@ end
 # Generator with mersenne:        7.3 i/s - 1.76x slower
 # Generator with fibonacci:        0.3 i/s - 43.84x slower
 
-# fibonacci_rng version 1.1.2
+# fibonacci_rng version 1.1.2 - speed_up_one branch
 #
 # Warming up --------------------------------------
 #   Baseline overheads     1.000  i/100ms
@@ -93,7 +93,7 @@ end
 # Generator with mersenne:        7.6 i/s - 1.75x slower
 # Generator with fibonacci:        0.3 i/s - 40.45x slower
 
-# fibonacci_rng version 1.1.3
+# fibonacci_rng version 1.1.3 - speed_up_two branch
 #
 # Warming up --------------------------------------
 #   Baseline overheads     1.000  i/100ms
@@ -113,7 +113,27 @@ end
 # Generator with mersenne:        7.5 i/s - 1.76x slower
 # Generator with fibonacci:        0.4 i/s - 30.04x slower
 
-# fibonacci_rng version 9.9.9 - Nonfunctional - no spinner
+# fibonacci_rng version 1.2.0 - speed_up_three, master branch.
+
+# Warming up --------------------------------------
+#   Baseline overheads     1.000  i/100ms
+# Generator with fibonacci
+#                          1.000  i/100ms
+# Generator with mersenne
+#                          1.000  i/100ms
+# Calculating -------------------------------------
+#   Baseline overheads     12.697  (± 0.0%) i/s -     64.000
+# Generator with fibonacci
+#                           4.345  (± 0.0%) i/s -     22.000
+# Generator with mersenne
+#                           7.433  (± 0.0%) i/s -     38.000
+#
+# Comparison:
+#   Baseline overheads:       12.7 i/s
+# Generator with mersenne:        7.4 i/s - 1.71x slower
+# Generator with fibonacci:        4.3 i/s - 2.92x slower
+
+# fibonacci_rng version 9.9.9 - no_spinner branch (not functional)
 #
 # Warming up --------------------------------------
 #   Baseline overheads     1.000  i/100ms
