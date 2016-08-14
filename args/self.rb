@@ -26,7 +26,7 @@ class MoreTests
     puts
 
     puts "MoreTests -- self.instance_exec(&$test)"
-    self.instance_exec(&$test)
+    instance_exec(&$test)
     puts
   end
 
@@ -49,7 +49,7 @@ MoreTests.new.test1
 # MoreTests -- $test.call
 # main
 #
-# MoreTests -- self.instance_exec(&$test)
+# MoreTests -- instance_exec(&$test)
 # #<MoreTests:0x1ef2da8>
 
 
