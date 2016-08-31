@@ -5,6 +5,8 @@ very early stages of examination. So far these are:
 
 args - Some experiments with portable, optional named arguments.
 
+array_columns - An experiment in printing out an array in neat, efficient columns.
+
 continue - Rapidly concluding that the continue construct is of no value to me.
 
 create - Studies in the creation of classes and their extend/include.
@@ -24,12 +26,18 @@ formatter - experiments in aid of the format_engine gem.
 fractions - Some Ruby code that experiments with converting fractions to
 binary fractions. This code is deliberately slowed down for dramatic effect.
 
-gem_usage - determine what gems use a given gem. now broken.
+gem_usage - determine what gems use a given gem. Now broken for some reason.
+
+getopt - some experiments with the getoptlong facility.
+
+ginger - some encryption experiments.
 
 io_console - Seeing just how useful require 'IO/console' is at getting low
 level access to the terminal. Answer not very! :-(
 
 manifest - what versions of modules are in the present mix.
+
+missing - some experiments with the method_missing hook.
 
 stdout_redirect - shell out with captured output.
 
