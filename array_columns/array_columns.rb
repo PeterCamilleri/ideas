@@ -143,4 +143,4 @@ test_array = Array.new(count) do |i|
 end
 
 #Display test_array in neat columns
-test_array.puts_columnized(20)
+test_array.puts_columnized(50)
