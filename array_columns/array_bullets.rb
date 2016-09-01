@@ -99,7 +99,7 @@ end
 #Build a sample array.
 gen = Random.new
 count = 10 + gen.rand(10) + gen.rand(10)
-scale = 20 + gen.rand(20) + gen.rand(20) * gen.rand(20)
+scale = 1 + gen.rand(100) + gen.rand(100) * gen.rand(100)
 
 test_array = Array.new(count) do |i|
   [i*scale, (0...gen.rand(1..40)).map{|i| "*" * gen.rand(1..12)}.join(" ")]
