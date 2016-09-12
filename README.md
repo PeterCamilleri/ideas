@@ -7,6 +7,8 @@ args - Some experiments with portable, optional named arguments.
 
 array_columns - An experiment in printing out an array in neat, efficient columns.
 
+console_size - Some experiments in determining the size of the console.
+
 continue - Rapidly concluding that the continue construct is of no value to me.
 
 create - Studies in the creation of classes and their extend/include.
