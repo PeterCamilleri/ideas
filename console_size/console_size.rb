@@ -36,7 +36,7 @@ class RawTerm
 
     size = IO.console.winsize
 
-    print "size = #{x_size},#{y_size} or #{size[1]},#{size[0]}\x0D"
+    print "size = #{x_size},#{y_size}  #{x_posn},#{y_posn} / #{size[1]},#{size[0]}\x0D"
 
   end
 
