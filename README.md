@@ -17,30 +17,33 @@ descendants - A little utility to explore the descendants of a class. I did this
 because I was convinced that the PickAxe book was giving a very incomplete
 picture of the Exception class tree. Seemed I was right.
 
-excuses - a fun excuse generator.
+excuses - A fun excuse generator.
 
 fast_ruby - Studies in making ruby run faster.
 
-fiber - experimenting with fibers.
+fiber - Experimenting with fibers.
 
-formatter - experiments in aid of the format_engine gem.
+fiber/local.rb - A special study on the use of bindings and fibers to maintain
+local state. Especially useful for repl applications. Tested under sever rubies.
+
+formatter - Experiments in aid of the format_engine gem.
 
 fractions - Some Ruby code that experiments with converting fractions to
 binary fractions. This code is deliberately slowed down for dramatic effect.
 
-gem_usage - determine what gems use a given gem. Now broken for some reason.
+gem_usage - Determine what gems use a given gem. Now broken for some reason.
 
-getopt - some experiments with the getoptlong facility.
+getopt - Some experiments with the getoptlong facility.
 
-ginger - some encryption experiments.
+ginger - Some encryption experiments.
 
 io_console - Seeing just how useful require 'IO/console' is at getting low
 level access to the terminal. Answer not very! :-(
 
-manifest - what versions of modules are in the present mix.
+manifest - What versions of modules are in the present mix.
 
-missing - some experiments with the method_missing hook.
+missing - Some experiments with the method_missing hook.
 
-stdout_redirect - shell out with captured output.
+stdout_redirect - Shell out with captured output.
 
-subclass_string - experiments with sub classing the String class.
+subclass_string - Experiments with sub classing the String class.
