@@ -1,7 +1,6 @@
 # coding: utf-8
 
 require_relative 'win_32_api'
-require 'IO/console'
 
 #The class used to manipulate console i/o on a low level.
 #<br>Endemic Code Smells
@@ -25,27 +24,36 @@ class RawTerm
     @_out_handle = @_get_handle.call(STD_OUTPUT_HANDLE)
   end
 
-  def update_size
-    raw_buffer = 0.chr * 24
+  def show_screen_info
+    raw_buffer = 0.chr * 22
     @_get_screen_info.call(@_out_handle, raw_buffer)
 
-    x_size = (raw_buffer[0,2].unpack('S'))[0]
-    y_size = (raw_buffer[2,2].unpack('S'))[0]
-    x_posn = (raw_buffer[4,2].unpack('S'))[0]
-    y_posn = (raw_buffer[6,2].unpack('S'))[0]
+    x_size     = (raw_buffer[ 0,2].unpack('S'))[0]
+    y_size     = (raw_buffer[ 2,2].unpack('S'))[0]
+    x_posn     = (raw_buffer[ 4,2].unpack('S'))[0]
+    y_posn     = (raw_buffer[ 6,2].unpack('S'))[0]
 
-    size = IO.console.winsize
+    attrib     = (raw_buffer[ 8,2].unpack('S'))[0]
 
-    print "size = #{x_size},#{y_size}  #{x_posn},#{y_posn} / #{size[1]},#{size[0]}\x0D"
+    left       = (raw_buffer[10,2].unpack('S'))[0]
+    top        = (raw_buffer[12,2].unpack('S'))[0]
+    right      = (raw_buffer[14,2].unpack('S'))[0]
+    bottom     = (raw_buffer[16,2].unpack('S'))[0]
+
+    max_width  = (raw_buffer[18,2].unpack('S'))[0]
+    max_height = (raw_buffer[20,2].unpack('S'))[0]
+
+    puts
+    puts "buffer   (width = #{x_size.to_s.rjust(2)   }, height = #{y_size})"
+    puts "position (x     = #{x_posn.to_s.rjust(2)   }, y      = #{y_posn})"
+    puts "window   (left  = #{left.to_s.rjust(2)     }, right  = #{right}, " +
+    "top = #{top}, bottom = #{bottom})"
+    puts "max      (width = #{max_width.to_s.rjust(2)}, height = #{max_height})"
+    puts "character attributes = 0x#{attrib.to_s(16) }"
+    puts
 
   end
 
 end
 
-rt = RawTerm.new
-
-100.times do
-  rt.update_size
-  sleep(0.1)
-end
-
+RawTerm.new.show_screen_info
