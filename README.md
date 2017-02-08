@@ -44,6 +44,8 @@ manifest - What versions of modules are in the present mix.
 
 missing - Some experiments with the method_missing hook.
 
+questions - Code written while answering questions on stack overflow.
+
 stdout_redirect - Shell out with captured output.
 
 subclass_string - Experiments with sub classing the String class.
