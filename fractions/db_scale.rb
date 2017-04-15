@@ -1,6 +1,8 @@
 #
 # Compute a rational approximation of a db scale.
 #
+# From https://www.johndcook.com/blog/2010/10/20/best-rational-approximation/
+#
 
 def farey(value, limit)
   a,b = 0,1
