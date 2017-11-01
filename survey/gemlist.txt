@@ -13,3 +13,6 @@ flex_array
 safe_clone
 safe_dup
 composite_rng
+minitest_visible
+mystiko
+connect_n_game
