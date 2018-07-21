@@ -149,7 +149,23 @@ class Array
 
 end
 
-$test_subject = Array.new(10) { "abcd" }
+class Numeric
+
+  def full_dup1(progress={})
+    self
+  end
+
+  def full_dup2(progress={})
+    self
+  end
+
+  def full_dup3(progress={})
+    self
+  end
+
+end
+
+$test_subject = (Array.new(100) { "abcd" }) + Array.new(100, 1)
 
 
 
@@ -173,3 +189,24 @@ Benchmark.ips do |x|
   x.compare!
 end
 
+
+# mysh>ruby -v
+# ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+# C:\Sites\ideas\fast_ruby
+# mysh>ruby faster_full_dup.rb
+# Warming up --------------------------------------
+#        use_full_dup1     1.000  i/100ms
+#        use_full_dup2     1.000  i/100ms
+#        use_full_dup3     1.000  i/100ms
+# Calculating -------------------------------------
+#        use_full_dup1      6.135  (± 0.0%) i/s -     31.000  in   5.053090s
+#        use_full_dup2      6.522  (± 0.0%) i/s -     33.000  in   5.059811s
+#        use_full_dup3      6.161  (± 0.0%) i/s -     31.000  in   5.031591s
+#
+# Comparison:
+#        use_full_dup2:        6.5 i/s
+#        use_full_dup3:        6.2 i/s - 1.06x  slower
+#        use_full_dup1:        6.1 i/s - 1.06x  slower
+#
+# Conclusion: The fastest (and ugliest) version was only 5% faster than the
+#             stock version. This is not a worthwhile change.
