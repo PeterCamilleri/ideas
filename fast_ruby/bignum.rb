@@ -58,3 +58,34 @@ end
 # Adding with BIGNUM 1e10:      578.6 i/s - 2.40x slower
 # Adding with BIGNUM 1e20:      259.3 i/s - 5.35x slower
 # Adding with BIGNUM 1e30:      174.7 i/s - 7.94x slower
+
+# Tested under: ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+#
+# Warming up --------------------------------------
+# Adding with FIXNUM 1e00
+#                        139.000  i/100ms
+# Adding with BIGNUM 1e10
+#                         62.000  i/100ms
+# Adding with BIGNUM 1e20
+#                         25.000  i/100ms
+# Adding with BIGNUM 1e30
+#                         16.000  i/100ms
+# Calculating -------------------------------------
+# Adding with FIXNUM 1e00
+#                           1.384k (± 0.8%) i/s -      6.950k in   5.022475s
+# Adding with BIGNUM 1e10
+#                         620.567  (± 0.2%) i/s -      3.162k in   5.095370s
+# Adding with BIGNUM 1e20
+#                         256.836  (± 0.0%) i/s -      1.300k in   5.061602s
+# Adding with BIGNUM 1e30
+#                         166.024  (± 1.2%) i/s -    832.000  in   5.012062s
+#
+# Comparison:
+# Adding with FIXNUM 1e00:     1383.9 i/s
+# Adding with BIGNUM 1e10:      620.6 i/s - 2.23x  slower
+# Adding with BIGNUM 1e20:      256.8 i/s - 5.39x  slower
+# Adding with BIGNUM 1e30:      166.0 i/s - 8.34x  slower
+
+
+
+
