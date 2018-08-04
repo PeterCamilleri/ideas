@@ -362,6 +362,34 @@ class Numeric
 
 end
 
+class String
+  def full_dup2(progress={})
+    dup
+  end
+
+  def full_dup3(progress={})
+    dup
+  end
+
+  def full_dup4(progress={})
+    dup
+  end
+
+  def full_dup5(progress={})
+    dup
+  end
+
+  def full_dup6(progress={})
+    dup
+  end
+
+  def full_dup7(progress={})
+    dup
+  end
+
+end
+
+
 $test_subject = (Array.new(100) { "abcd" }) + Array.new(100, 1)
 
 
@@ -405,6 +433,7 @@ Benchmark.ips do |x|
   x.compare!
 end
 
+# mysh>ruby faster_full_dup.rb
 # Warming up --------------------------------------
 #        use_full_dup1     1.000  i/100ms
 #        use_full_dup2     1.000  i/100ms
@@ -414,20 +443,19 @@ end
 #        use_full_dup6     1.000  i/100ms
 #        use_full_dup7     1.000  i/100ms
 # Calculating -------------------------------------
-#        use_full_dup1      6.111  (± 0.0%) i/s -     31.000  in   5.073032s
-#        use_full_dup2      6.577  (± 0.0%) i/s -     33.000  in   5.017623s
-#        use_full_dup3      6.173  (± 0.0%) i/s -     31.000  in   5.021820s
-#        use_full_dup4      6.589  (± 0.0%) i/s -     33.000  in   5.008006s
-#        use_full_dup5      6.695  (± 0.0%) i/s -     34.000  in   5.078077s
-#        use_full_dup6      6.703  (± 0.0%) i/s -     34.000  in   5.072220s
-#        use_full_dup7      6.642  (± 0.0%) i/s -     34.000  in   5.118844s
+#        use_full_dup1      6.077  (± 0.0%) i/s -     31.000  in   5.101499s
+#        use_full_dup2     10.775  (± 0.0%) i/s -     54.000  in   5.011740s
+#        use_full_dup3      9.842  (± 0.0%) i/s -     50.000  in   5.080405s
+#        use_full_dup4     10.764  (± 0.0%) i/s -     54.000  in   5.016970s
+#        use_full_dup5     10.603  (± 0.0%) i/s -     54.000  in   5.093140s
+#        use_full_dup6     10.724  (± 0.0%) i/s -     54.000  in   5.035648s
+#        use_full_dup7     10.532  (± 0.0%) i/s -     53.000  in   5.032138s
 #
 # Comparison:
-#        use_full_dup6:        6.7 i/s
-#        use_full_dup5:        6.7 i/s - 1.00x  slower
-#        use_full_dup7:        6.6 i/s - 1.01x  slower
-#        use_full_dup4:        6.6 i/s - 1.02x  slower
-#        use_full_dup2:        6.6 i/s - 1.02x  slower
-#        use_full_dup3:        6.2 i/s - 1.09x  slower
-#        use_full_dup1:        6.1 i/s - 1.10x  slower
-#
+#        use_full_dup2:       10.8 i/s
+#        use_full_dup4:       10.8 i/s - 1.00x  slower
+#        use_full_dup6:       10.7 i/s - 1.00x  slower
+#        use_full_dup5:       10.6 i/s - 1.02x  slower
+#        use_full_dup7:       10.5 i/s - 1.02x  slower
+#        use_full_dup3:        9.8 i/s - 1.09x  slower
+#        use_full_dup1:        6.1 i/s - 1.77x  slower
