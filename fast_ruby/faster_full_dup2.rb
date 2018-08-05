@@ -104,14 +104,14 @@ class Numeric
     self
   end
 
-  def full_dup2(progress={})
+  def full_dup2(progress=nil)
     self
   end
 
 end
 
 class String
-  def full_dup2(progress={})
+  def full_dup2(progress=nil)
     dup
   end
 
@@ -141,10 +141,10 @@ end
 #        use_full_dup1     1.000  i/100ms
 #        use_full_dup2     1.000  i/100ms
 # Calculating -------------------------------------
-#        use_full_dup1      6.108  (± 0.0%) i/s -     31.000  in   5.075610s
-#        use_full_dup2     10.700  (± 0.0%) i/s -     54.000  in   5.046702s
+#        use_full_dup1      5.056  (± 0.0%) i/s -     26.000  in   5.144658s
+#        use_full_dup2      9.286  (± 0.0%) i/s -     47.000  in   5.068812s
 #
 # Comparison:
-#        use_full_dup2:       10.7 i/s
-#        use_full_dup1:        6.1 i/s - 1.75x  slower
+#        use_full_dup2:        9.3 i/s
+#        use_full_dup1:        5.1 i/s - 1.84x  slower
 #
