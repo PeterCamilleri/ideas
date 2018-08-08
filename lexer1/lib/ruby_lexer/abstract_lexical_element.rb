@@ -10,6 +10,16 @@ module RubyLexer
       # WIP
     end
 
+    #Get the sequential sub-elements of this element.
+    def sequential
+      [self]
+    end
+
+    #Get the alternative sub-elements of this element
+    def alternatives
+      [self]
+    end
+
   end
 
 end
