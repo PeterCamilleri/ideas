@@ -16,13 +16,13 @@ test(1, 2, 3, keyparm: 42)
 # 42
 
 puts
-test([1, 2, 3])
-# [[1, 2, 3]]
+test(*[1, 2, 3])
+# [1, 2, 3]
 # nil
 
 puts
-test([1, 2, 3], keyparm: 42)
-# [[1, 2, 3]]
+test(*[1, 2, 3], keyparm: 42)
+# [1, 2, 3]
 # 42
 
 puts
