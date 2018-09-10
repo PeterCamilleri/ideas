@@ -4,12 +4,10 @@ old = tip = 1
 
 loop do
 
-  tip_class   = tip.class
-  tipp1_class = (tip+1).class
+  if tip.is_a?(Fixnum)
 
-  if tip_class == Fixnum && tipp1_class == Bignum
-    break
-  elsif tip_class == Fixnum
+    break if (tip+1).is_a?(Bignum)
+
     old = tip
     tip *=2
   else
