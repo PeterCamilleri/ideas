@@ -14,7 +14,10 @@ loop do
     tip = (tip + old)/2
   end
 
-  puts "#{tip}, #{old}"
+
+  #Uncomment for fun or debug.
+  #puts "#{'%10d' % tip}, #{'%10d' % old}"
+  #sleep(1.0)
 end
 
 puts
