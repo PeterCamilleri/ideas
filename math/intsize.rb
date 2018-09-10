@@ -10,8 +10,6 @@ loop do
 
   if tip_class == Fixnum && tipp1_class == Bignum
     break
-  elsif old_class == Bignum
-    old /= 2
   elsif old_class == Fixnum && tip_class == Fixnum
     old = tip
     tip *=2
