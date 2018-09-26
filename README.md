@@ -42,10 +42,16 @@ level access to the terminal. Answer not very! :-(
 
 manifest - What versions of modules are in the present mix.
 
+math - An examination of various aspects of Ruby math.
+
 missing - Some experiments with the method_missing hook.
+
+rb_config - A study of the RbConfig::CONFIG hash.
 
 questions - Code written while answering questions on stack overflow.
 
 stdout_redirect - Shell out with captured output.
+
+survey - A survey gem download statistics.
 
 subclass_string - Experiments with sub classing the String class.
