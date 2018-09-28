@@ -2,7 +2,7 @@
 
 **BUILD STATUS:**
 
-![CI Results?](./images/somuchwinning.png)
+![CI Results?](https://github.com/PeterCamilleri/ideas/blob/master/images/somuchwinning.png)
 
 This little grouping of projects is a place to store various ideas in the
 very early stages of examination. So far these are:
