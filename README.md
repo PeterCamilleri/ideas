@@ -2,7 +2,7 @@
 
 **BUILD STATUS:**
 
-![CI Results](./manifest/somuchwinning.png)
+![CI Results?](./images/somuchwinning.png)
 
 This little grouping of projects is a place to store various ideas in the
 very early stages of examination. So far these are:
