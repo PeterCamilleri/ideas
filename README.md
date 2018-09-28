@@ -2,7 +2,7 @@
 
 **BUILD STATUS:**
 
-![alt text](./manifest/somuchwinning.png "Volkswagen Continuous Testing")
+![CI Results](./manifest/somuchwinning.png)
 
 This little grouping of projects is a place to store various ideas in the
 very early stages of examination. So far these are:
