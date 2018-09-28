@@ -1,5 +1,9 @@
 # Some IDEAS
 
+**BUILD STATUS:**
+
+![alt text](./manifest/somuchwinning.png "Volkswagen Continuous Testing")
+
 This little grouping of projects is a place to store various ideas in the
 very early stages of examination. So far these are:
 
