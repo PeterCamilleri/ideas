@@ -50,6 +50,8 @@ rb_config - A study of the RbConfig::CONFIG hash.
 
 questions - Code written while answering questions on stack overflow.
 
+self - A study of the nature and uses of self in Ruby.
+
 stdout_redirect - Shell out with captured output.
 
 survey - A survey gem download statistics.
