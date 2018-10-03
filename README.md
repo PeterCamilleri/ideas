@@ -57,3 +57,5 @@ stdout_redirect - Shell out with captured output.
 survey - A survey gem download statistics.
 
 subclass_string - Experiments with sub classing the String class.
+
+scrap.txt - Think of this a github persisted clipboard buffer of work in progress.

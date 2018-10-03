@@ -1,0 +1,209 @@
+======================================================
+Command Prompt with Ruby and Rails
+
+C:\Windows\System32\cmd.exe /E:ON /K C:\RailsInstaller\Ruby2.3.3\setup_environment.bat C:\RailsInstaller
+
+/E:ON - enable command extensions.
+
+/C: command - execute the command then exit the CLI.
+/K: command - execute the command but do not exit the CLI.
+
+ruby -e"require 'mysh'; Mysh.run"
+ruby -e"require %q{mysh}; Mysh.run"
+
+cmd /c cmd1 & cmd2
+cmd /c cmd1 && cmd2
+
+
+Connecting git Repositories
+===========================
+
+git remote add origin https://github.com/PeterCamilleri/<<<name>>>.git
+git push -u origin master
+
+
+Cloning git Repositories
+===========================
+
+git clone https://github.com/PeterCamilleri/<<<name>>>.git
+
+
+Bundler for Gems
+================
+
+bundle gem my_gem_name
+ -- create a skeleton for gem development.
+ -- execute this command from the parent folder of the gem root folder.
+
+Filter the list of files included in a gem. The following is in the gemspec.
+
+  raw_list = `git ls-files`.split($/)
+  raw_list = raw_list.keep_if {|entry| !entry.start_with?("docs") }
+  spec.files = raw_list
+
+======================================================
+
+The following new tasks for the rakefile:
+
+# coding: utf-8
+require 'rake/testtask'
+require "bundler/gem_tasks"
+
+desc "Run a scan for smelly code!"
+task :reek do |t|
+  `reek --no-color lib > reek.txt`
+end
+
+desc "Fire up an IRB session with <<<name>>> preloaded."
+task :console do
+  system "ruby irbt.rb local"
+end
+
+desc "What version of <<<name>>> is this?"
+task :vers do |t|
+  puts
+  puts "<<<name>>> version = #{<<<name>>>::VERSION}"
+end
+
+desc "Alternative test procedure"
+task :alt_test, :target do |t, args|
+  args.with_defaults(:target => 'test')
+  here  = File.dirname(__FILE__)
+  target = "#{here}/#{args[:target]}/*.rb"
+  puts "Target files = #{target}"
+  puts
+
+  block = "{|file| require file if File.basename(file) =~ /test/}"
+  code  = "Dir['#{target}'].each #{block}"
+
+  system "ruby -e\"#{code}\""
+end
+
+======================================================
+
+Common test file boilerplate.
+
+require_relative '../lib/<<<name>>>'
+gem              'minitest'
+require          'minitest/autorun'
+require          'minitest_visible'
+
+class <<<name>>>Tester < Minitest::Test
+
+  #Track mini-test progress.
+  include MinitestVisible
+
+  def test_that_it_has_a_version_number
+    refute_nil ::Rctp::VERSION
+    assert(::Rctp::VERSION.is_a?(String))
+    assert(/\A\d+\.\d+\.\d+/ =~ ::Rctp::VERSION)
+  end
+
+  # More tests go here.
+end
+
+======================================================
+Readme elements:
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+OR...
+
+* Make a suggestion by raising an
+ [issue](https://github.com/PeterCamilleri/<<<name>>>/issues)
+. All ideas and comments are welcome.
+
+## License
+
+The gem is available as open source under the terms of the
+[MIT License](./LICENSE.txt).
+
+## Code of Conduct
+
+Everyone interacting in the <<<name>>> project’s codebases, issue trackers,
+chat rooms and mailing lists is expected to follow the
+[code of conduct](./CODE_OF_CONDUCT.md).
+
+======================================================
+
+Useful utilities:
+
+# Line count of a project from the command line.
+find lib -name '*.rb' | xargs wc -l
+
+# Require all files in a folder.
+Dir[File.dirname(__FILE__) + '/players/*.rb'].each {|file| require file }
+
+# Display the Ruby configuration data.
+RbConfig::CONFIG.keys.sort.each {|k| puts "#{k} => #{RbConfig::CONFIG[k]}"}; nil
+
+
+https://rubygems.org/api/v1/downloads/minitest_visible-0.1.2.json
+
+http://bestgems.org//api/v1/gems/full_dup/total_downloads.json
+
+http://rubygems.org//api/v1/full_dup/total_downloads-0.0.5.json   << bogus
+
+https://rubygems.org/api/v1/downloads/full_dup-0.0.5.json
+https://rubygems.org/api/v1/versions/full_dup.json
+https://rubygems.org/api/v1/versions/full_dup/latest.json
+
+https://rubygems.org/api/v1/gems/flex_array/reverse_dependencies.json
+https://rubygems.org/api/v1/gems/full_dup/reverse_dependencies.json
+https://rubygems.org/api/v1/gems/ruby_sscanf/reverse_dependencies.json
+
+======================================================
+
+# Query a web based json data source.
+
+require 'net/http'
+require 'json'
+
+url = 'https://api.spotify.com/v1/search?type=artist&q=tycho'
+uri = URI(url)
+response = Net::HTTP.get(uri)
+JSON.parse(response)
+
+https://en.wikipedia.org/wiki/Read-eval-print_loop
+https://rubygems.org/api/v1/owners/PeterCamilleri/gems.json
+https://rubygems.org/api/v1/search.json?query=fOOrth
+https://rubygems.org/api/v1/search.json?query=fOOrth&page=2
+https://rubygems.org/api/v1/versions/full_dup.json
+https://rubygems.org/api/v1/versions/mini_readline.json
+
+======================================================
+Some miscellaneous notes:
+
+Removed code from flex_array gem:
+
+  # Make a copy of the other's data.
+  def copy_data(other)
+    fail ArgumentError, "Incompatible data copy." unless compatible?(other)
+    @array_data = other.array_data.dup
+  end
+
+C:\Sites>ruby -e'puts RubyVM::InstructionSequence.compile_option'
+{:inline_const_cache=>true,
+ :peephole_optimization=>true,
+ :tailcall_optimization=>false,
+ :specialized_instruction=>true,
+ :operands_unification=>true,
+ :instructions_unification=>false,
+ :stack_caching=>false,
+ :trace_instruction=>true,
+ :frozen_string_literal=>false,
+ :debug_frozen_string_literal=>false,
+ :debug_level=>0
+}
+
+C:\Sites>ruby -e"p RubyVM::OPTS"
+["direct threaded code",
+ "operands unification",
+ "inline method cache"
+]
