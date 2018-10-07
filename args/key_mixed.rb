@@ -26,6 +26,11 @@ test(*[1, 2, 3], keyparm: 42)
 # 42
 
 puts
+test(keyparm: 42)
+#[]
+#42
+
+puts
 puts "Part 2"
 
 def []=(*test, value)
