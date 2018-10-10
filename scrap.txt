@@ -207,3 +207,8 @@ C:\Sites>ruby -e"p RubyVM::OPTS"
  "operands unification",
  "inline method cache"
 ]
+
+
+Pithy sayings and profound quotes:
+
+The Tyranny of Brittle Code
