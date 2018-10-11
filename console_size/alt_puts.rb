@@ -1,12 +1,14 @@
 #Test ideas for tapping into puts.
 
+require 'io/console'
+
 $saved_stdout = $stdout
 
 class TracedOut
 
   def initialize
     @line = 0
-    @line_per_page = 5
+    @line_per_page = 32
     @chrs = 0
     @chrs_per_line = 80
   end
@@ -19,10 +21,10 @@ class TracedOut
       write(copy.slice!(0, @chrs_per_line))
       write(copy)
     else
-      if @line >= @line_per_page
-        $saved_stdout.write("PAUSE")
-        sleep(2) # Sleep because this test has no raw input.
-        $saved_stdout.write("\r     \r")
+      if (@line+1) >= @line_per_page
+        $saved_stdout.write("Press Space")
+        getch
+        $saved_stdout.write("\r           \r")
         @line = 0
       end
 
@@ -32,6 +34,13 @@ class TracedOut
         @line += 1
       end
     end
+  end
+
+  def getch
+    STDIN.raw!
+    STDIN.getch
+  ensure
+    STDIN.cooked!
   end
 end
 
@@ -44,11 +53,11 @@ end
 
 with_trace {
   puts "Test one - Hello World"
-  12.times { puts "Hello World" }
+  40.times { puts "Hello World" }
 
   puts "Test two - (1..20).to_a"
-  puts (1..20).to_a
+  puts (1..40).to_a
 
-  puts "Test three - a row of 1000 stars"
-  puts "*"*1000
+  puts "Test three - a row of 5000 stars"
+  puts "*"*5000
 }
