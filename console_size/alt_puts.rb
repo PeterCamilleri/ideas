@@ -6,6 +6,8 @@ $saved_stdout = $stdout
 
 class TracedOut
 
+  MSG = "Press Space"
+
   def initialize
     @line = 0
     @line_per_page = 32
@@ -22,9 +24,9 @@ class TracedOut
       write(copy)
     else
       if (@line+1) >= @line_per_page
-        $saved_stdout.write("Press Space")
+        $saved_stdout.write(MSG)
         getch
-        $saved_stdout.write("\r           \r")
+        $saved_stdout.write("\r" + " " * MSG.length + "\r")
         @line = 0
       end
 
