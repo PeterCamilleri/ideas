@@ -18,7 +18,7 @@
 #
 # From https://gist.github.com/nixpulvis/6025433
 #
-# No joy here. 1074295912, it seems, is just a little to magical.
+# No joy here. 1074295912, it seems, is just a little too magical.
 #
 window = [0,   0,   0,    0     ].pack('SSSS')
 
