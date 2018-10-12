@@ -23,3 +23,6 @@ with_trace { puts [1, 2, 3] }
 
 puts "Test three - a row of 100 stars"
 with_trace { puts "*"*100 }
+
+puts "Test four - embedded new lines"
+with_trace { puts "Eric\nthe\half\na\bee" }
