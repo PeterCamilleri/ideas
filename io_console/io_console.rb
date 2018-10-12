@@ -5,7 +5,7 @@ require 'io/console'
 puts
 puts "With IO.console"
 puts IO.console.inspect
-puts "IO.console.winsize #does not work!"
+puts IO.console.winsize.inspect
 puts
 
 puts "With STDOUT"
