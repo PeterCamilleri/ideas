@@ -66,6 +66,7 @@ class PagedOutput
   def pause
     $saved_stdout.write(MSG)
     STDIN.raw(&:getch)
+  ensure
     $saved_stdout.write("\r" + " " * MSG.length + "\r")
   end
 
