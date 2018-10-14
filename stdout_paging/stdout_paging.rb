@@ -11,10 +11,12 @@ class PagedOutput
 
   # Set up the initial values.
   def initialize
-    @line = 0
-    @line_per_page = 32
-    @chrs = 0
-    @chrs_per_line = 80
+    @lines = 0
+    @chars = 0
+
+    # For this test, these are hardwired.
+    @lines_per_page = 32
+    @chars_per_line = 80
   end
 
   # Write out a general string with page pauses.
@@ -31,14 +33,14 @@ class PagedOutput
     loop do
       len = str.length
 
-      if @chrs + len < @chrs_per_line
+      if @chars + len < @chars_per_line
         $saved_stdout.write(str)
-        @chrs += len
+        @chars += len
         return
       else
-        tilt = @chrs_per_line - @chrs
+        tilt = @chars_per_line - @chars
         $saved_stdout.write(str[0, tilt])
-        count_line
+        count_lines
 
         str = (str[tilt..-1])
       end
@@ -48,17 +50,17 @@ class PagedOutput
   # Write out a new-line.
   def writeln
     $saved_stdout.write("\n")
-    count_line
+    count_lines
   end
 
   # A new line is out, count it!
-  def count_line
-    @chrs = 0
-    @line += 1
+  def count_lines
+    @chars = 0
+    @lines += 1
 
-    if @line >= (@line_per_page - 1)
+    if @lines >= (@lines_per_page - 1)
       pause
-      @line = 0
+      @lines = 0
     end
   end
 
