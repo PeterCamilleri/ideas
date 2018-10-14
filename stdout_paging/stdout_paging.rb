@@ -65,7 +65,7 @@ class PagedOutput
   # Pause waiting for the user.
   def pause
     $saved_stdout.write(MSG)
-    STDIN.raw { |i| i.getch }
+    STDIN.raw(&:getch)
     $saved_stdout.write("\r" + " " * MSG.length + "\r")
   end
 
