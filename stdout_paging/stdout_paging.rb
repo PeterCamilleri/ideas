@@ -99,4 +99,8 @@ with_pauses do
   puts "Test five - 20 times Hello\\nWonderful\\nWorld"
   20.times { |i| puts "#{i} Hello\nWonderful\nWorld" }
 
+  puts "Test six - 260 streams of 10 letters"
+  10.times {("A".."Z").each {|l| print l*10 }}
+  puts
+
 end
