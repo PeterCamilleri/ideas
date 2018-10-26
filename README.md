@@ -31,6 +31,9 @@ formatter - Experiments in aid of the format_engine gem.
 fractions - Some Ruby code that experiments with converting fractions to
 binary fractions. This code is deliberately slowed down for dramatic effect.
 
+garage - A safe storage spot for various assets that are not yet part of any
+project.
+
 gem_usage - Determine what gems use a given gem. Now broken for some reason.
 
 getopt - Some experiments with the getoptlong facility.
