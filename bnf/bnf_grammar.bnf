@@ -1,0 +1,31 @@
+# A BNF Grammar for BNF Compiler Specifications.
+# Version 0.0.6
+
+begin bnf_grammar
+
+<grammar>      = <blank>? <begin> <blank>? <statement>+ <blank>? <end>
+
+<begin>        = "begin" <identifier> <action>?
+
+<end>          = "end" <action>?
+
+<statement>    = <non_terminal> "=" <expression> <separator>
+
+<expression>   = <term> ("|" term)*
+
+<term>         = <factor>+
+
+<factor>       = (<string> | <regex> | <non_terminal> | "(" <expression> ")")
+                 ("?"|"*"|"+")? <action>?
+
+<separator>    = ";" | <blank>
+
+<blank>        = /\A\s*$(^\s*$)+/
+
+<identifier>   = /\A[a-z][a-z0-9_]*/
+
+<non_terminal> = /\A\<[a-z][a-z0-9_]*\>/
+
+<action>       = "{{"  ruby code  "}}"
+
+end
