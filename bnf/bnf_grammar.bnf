@@ -1,31 +1,39 @@
 # A BNF Grammar for BNF Compiler Specifications.
-# Version 0.0.6
+# Version 0.0.8
 
-begin bnf_grammar
+begin BNF_Grammar
 
-<grammar>      = <blank>? <begin> <blank>? <statement>+ <blank>? <end>
+<grammar>      = <blank>? <begin> <statement>+ <end>
 
-<begin>        = "begin" <identifier> <action>?
+<begin>        = "begin" <class_name> <action>? <separator>
+
+<class_name>   = /\A[A-Z][A-Za-z0-9_]*/
 
 <end>          = "end" <action>?
 
-<statement>    = <non_terminal> "=" <expression> <separator>
+<statement>    = (<rule>) <separator>
+
+<rule>         = <rule_name> "=" <expression>
+
+<rule_name>    = /\A\<[a-z][a-z0-9_]*\>/
 
 <expression>   = <term> ("|" term)*
 
 <term>         = <factor>+
 
-<factor>       = (<string> | <regex> | <non_terminal> | "(" <expression> ")")
-                 ("?"|"*"|"+")? <action>?
+<factor>       = <value> ("?"|"*"|"+")? <action>?
+
+<value>        = (<string> | <regex> | <rule_name> | "(" <expression> ")")
 
 <separator>    = ";" | <blank>
 
 <blank>        = /\A\s*$(^\s*$)+/
 
-<identifier>   = /\A[a-z][a-z0-9_]*/
+<action>       = /\A{{.*}}/m
 
-<non_terminal> = /\A\<[a-z][a-z0-9_]*\>/
 
-<action>       = "{{"  ruby code  "}}"
+<spaces>       = /\A\s+/  {{ false }}
+
+<comments>     = /\A#.*$/ {{ false }}
 
 end
