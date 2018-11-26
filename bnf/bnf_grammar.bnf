@@ -25,12 +25,15 @@ begin BNF_Grammar
 
 <value>        = (<string> | <regex> | <rule_name> | "(" <expression> ")")
 
+<string>       = /"([^=]|(\"))*"/
+
+<regex>        = /\/([^\/]|(\/))*\//
+
 <separator>    = ";" | <blank>
 
 <blank>        = /\A\s*$(^\s*$)+/
 
 <action>       = /\A{{.*}}/m
-
 
 <spaces>       = /\A\s+/  {{ false }}
 
