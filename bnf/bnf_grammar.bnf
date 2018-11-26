@@ -23,11 +23,13 @@ begin BNF_Grammar
 
 <factor>       = <value> ("?"|"*"|"+")? <action>?
 
-<value>        = (<string> | <regex> | <rule_name> | "(" <expression> ")")
+<value>        = <string> | <regex> | <rule_name> | <sub_expr>
 
 <string>       = /"([^=]|(\"))*"/
 
-<regex>        = /\/([^\/]|(\/))*\//
+<regex>        = /\x2F[^\x2F]*\x2F[imx]*/
+
+<sub_expr>     = "(" <expression> ")"
 
 <separator>    = ";" | <blank>
 
