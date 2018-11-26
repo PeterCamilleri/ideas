@@ -25,9 +25,9 @@ begin BNF_Grammar
 
 <value>        = <string> | <regex> | <rule_name> | <sub_expr>
 
-<string>       = /"([^=]|(\"))*"/
+<string>       = /\A"([^=]|(\"))*"/
 
-<regex>        = /\x2F[^\x2F]*\x2F[imx]*/
+<regex>        = /\A(\/)((\\\/)|[^\/])*(\/)[imx]*/
 
 <sub_expr>     = "(" <expression> ")"
 
