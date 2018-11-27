@@ -1,7 +1,8 @@
 # A BNF Grammar for BNF Compiler Specifications.
-# Version 0.0.8
 
 begin BNF_Grammar
+
+pragma version "0.0.9"
 
 <grammar>      = <blank>? <begin> <statement>+ <end>
 
@@ -11,7 +12,7 @@ begin BNF_Grammar
 
 <end>          = "end" <action>?
 
-<statement>    = (<rule>) <separator>
+<statement>    = (<rule>|<pragma>) <separator>
 
 <rule>         = <rule_name> "=" <expression>
 
@@ -36,6 +37,10 @@ begin BNF_Grammar
 <blank>        = /\A\s*$(^\s*$)+/
 
 <action>       = /\A{{.*}}/m
+
+<pragma>       = "pragma" <selector> <string>
+
+<selector>     = "version"
 
 <spaces>       = /\A\s+/  {{ false }}
 
