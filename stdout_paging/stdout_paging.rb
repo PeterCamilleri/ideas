@@ -1,6 +1,9 @@
 #Test ideas for putting page pauses into Ruby output.
 
 require 'io/console'
+require 'mini_term'
+
+MiniTerm.open
 
 $saved_stdout = $stdout      # Keep a copy of the real $stdout.
 
@@ -67,7 +70,7 @@ class PagedOutput
   # Pause waiting for the user.
   def pause
     $saved_stdout.write(MSG)
-    STDIN.raw(&:getch)
+    MiniTerm.raw {MiniTerm.get_raw_char; MiniTerm.flush}
   ensure
     $saved_stdout.write("\r" + " " * MSG.length + "\r")
   end
