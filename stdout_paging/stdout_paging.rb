@@ -65,9 +65,7 @@ class PagedOutput
     @lines += 1
 
     if @lines >= (@lines_per_page - 1)
-      key = pause
-
-      case key.downcase
+      case pause.downcase
       when " "
         @lines -= 1
       when "q"
@@ -75,7 +73,6 @@ class PagedOutput
       else
         @lines = 0
       end
-
     end
   end
 
