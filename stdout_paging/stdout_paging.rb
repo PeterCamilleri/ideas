@@ -3,14 +3,17 @@
 require 'io/console'
 require 'mini_term'
 
-MiniTerm.open
+MiniTerm.open(quiet: true)
 
 $saved_stdout = $stdout      # Keep a copy of the real $stdout.
+
+class QuitOutput < Exception
+end
 
 # A class to manage paged output.
 class PagedOutput
 
-  MSG = "Press Space"
+  MSG = "Press enter, space or q:"
 
   # Set up the initial values.
   def initialize
@@ -62,15 +65,29 @@ class PagedOutput
     @lines += 1
 
     if @lines >= (@lines_per_page - 1)
-      pause
-      @lines = 0
+      key = pause
+
+      case key.downcase
+        when " "
+          @lines -= 1
+        when "q"
+          raise QuitOutput
+        else
+          @lines = 0
+      end
+
     end
   end
 
   # Pause waiting for the user.
   def pause
     $saved_stdout.write(MSG)
-    MiniTerm.raw {MiniTerm.get_raw_char; MiniTerm.flush}
+    MiniTerm.raw do |term|
+      result = term.get_raw_char
+      term.flush
+      result
+    end
+
   ensure
     $saved_stdout.write("\r" + " " * MSG.length + "\r")
   end
@@ -80,8 +97,11 @@ end
 # Execute a block with page paused output.
 def with_pauses
   saved   = $stdout
-  $stdout = PagedOutput.new if $stdout.equal?($saved_stdout)
+  $stdout = PagedOutput.new if (outer = $stdout.equal?($saved_stdout))
   yield
+rescue QuitOutput
+  raise unless outer
+  return
 ensure
   $stdout = saved
 end
@@ -92,11 +112,13 @@ with_pauses do
   puts "Test one - 40 times Hello World"
   40.times { puts "Hello World" }
 
-  puts "Test two - (1..40).to_a"
-  puts (1..40).to_a
+  with_pauses do
+    puts "Test two - (1..40).to_a"
+    puts (1..40).to_a
 
-  puts "Test three - a row of 5000 stars"
-  puts "*"*5000
+    puts "Test three - a row of 5000 stars"
+    puts "*"*5000
+  end
 
   puts "Test four - 260 streams of 19 letters"
   10.times {("A".."Z").each {|l| print l*19 }}
