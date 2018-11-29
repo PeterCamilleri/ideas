@@ -68,12 +68,12 @@ class PagedOutput
       key = pause
 
       case key.downcase
-        when " "
-          @lines -= 1
-        when "q"
-          raise QuitOutput
-        else
-          @lines = 0
+      when " "
+        @lines -= 1
+      when "q"
+        raise QuitOutput
+      else
+        @lines = 0
       end
 
     end
