@@ -126,10 +126,10 @@ show_specs('goasdfsu')
 
 
 
-# 31: =dependency   = Gem::Dependency.new 'gosu'
-# 33: =fetcher      = Gem::SpecFetcher.fetcher
-# 35: =(spec_tuples, = fetcher.spec_for_dependency dependency)
-# 48: =spec_tuples.map {|s| [s[0].version.to_s, s[0].platform.to_s]}
+# 31: =dependency = Gem::Dependency.new('gosu')
+# 33: =fetcher = Gem::SpecFetcher.fetcher
+# 35: =specs = fetcher.spec_for_dependency(dependency)[0]
+# 48: =specs.map {|s| [s[0].version.to_s, s[0].platform.to_s]}
 # [
 #  ["0.7.38", "x86-mingw32"],
 #  ["0.14.4", "ruby"],
