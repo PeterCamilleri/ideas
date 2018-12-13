@@ -65,6 +65,8 @@ task :vers do |t|
   puts "<<<name>>> version = #{<<<name>>>::VERSION}"
 end
 
+# Alternate test.
+
 desc "Alternative test procedure"
 task :alt_test, :target do |t, args|
   args.with_defaults(:target => 'test')
@@ -78,6 +80,23 @@ task :alt_test, :target do |t, args|
 
   system "ruby -e\"#{code}\""
 end
+
+# Simplified alternate test.
+
+desc "Alternative test procedure"
+task :alt_test do |t|
+  here  = File.dirname(__FILE__)
+  target = "#{here}/test/*.rb"
+  puts "Target files = #{target}"
+  puts
+
+  block = "{|file| require file if File.basename(file) =~ /test/}"
+  code  = "Dir['#{target}'].each #{block}"
+
+  system "ruby -e\"#{code}\""
+end
+
+
 
 ======================================================
 
