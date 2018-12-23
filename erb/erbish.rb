@@ -14,7 +14,7 @@ template = ERB.new(src)
 
 puts template.result(binding)
 
-puts template.src
+#puts template.src
 
 # _erbout = ''
 # _erbout.concat "  So now we can begin\n  "
@@ -29,3 +29,12 @@ puts template.src
 # _erbout.concat(( "Hello" ).to_s)
 # _erbout.concat "\n"
 # _erbout.force_encoding(__ENCODING__)
+
+a = 4
+b = 5
+
+src = "<% if a == b; %> They were equal indeed.  <% else %> Ha! You LIE! <% end %>"
+
+template = ERB.new(src)
+
+puts template.result(binding)
