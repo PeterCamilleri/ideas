@@ -45,6 +45,7 @@ Filter the list of files included in a gem. The following is in the gemspec.
 
 The following new tasks for the rakefile:
 
+#!/usr/bin/env rake
 # coding: utf-8
 require 'rake/testtask'
 require "bundler/gem_tasks"
@@ -113,9 +114,10 @@ class <<<name>>>Tester < Minitest::Test
   include MinitestVisible
 
   def test_that_it_has_a_version_number
-    refute_nil ::Rctp::VERSION
-    assert(::Rctp::VERSION.is_a?(String))
-    assert(/\A\d+\.\d+\.\d+/ =~ ::Rctp::VERSION)
+    refute_nil(::<<<name>>>::VERSION)
+    assert(::<<<name>>>::VERSION.frozen?)
+    assert(::<<<name>>>::VERSION.is_a?(String))
+    assert(/\A\d+\.\d+\.\d+/ =~ ::<<<name>>>::VERSION)
   end
 
   # More tests go here.
@@ -231,3 +233,6 @@ C:\Sites>ruby -e"p RubyVM::OPTS"
 Pithy sayings and profound quotes:
 
 The Tyranny of Brittle Code
+
+
+
