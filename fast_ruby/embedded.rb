@@ -4,7 +4,7 @@ require 'erubi'
 
 x     = 42
 $env  = binding
-lines = 100
+lines = 1000
 
 puts "Lines = #{lines}", ""
 
@@ -13,58 +13,66 @@ $usrc = "The answer to life, the universe and everything is 21\n"  * lines
 
 class String
 
-  def first_embedder
+  def erb_direct
     ERB.new(self).result($env)
   end
 
-  def second_embedder
+  def erb_shortcut
     self['<%'] ? ERB.new(self).result($env) : self
   end
 
-  def third_embedder
-    /<%/ =~ self ? ERB.new(self).result($env) : self
-  end
-
-  def with_erubi
+  def erubi_direct
     $env.eval(Erubi::Engine.new(self).src)
   end
 
-end
+  def erubi_shortcut
+    self['<%'] ?  $env.eval(Erubi::Engine.new(self).src) : self
+  end
 
-def use_direct
-  $esrc.first_embedder
-  $usrc.first_embedder
 end
-
-def use_shortcut1
-  $esrc.second_embedder
-  $usrc.second_embedder
-end
-
-def use_shortcut2
-  $esrc.third_embedder
-  $usrc.third_embedder
-end
-
-def use_erubi
-  $esrc.with_erubi
-  $usrc.with_erubi
-end
-
 
 Benchmark.ips do |x|
-  x.report("Embed directly")     { use_direct }
-  x.report("Embed shortcut 1")   { use_shortcut1 }
-  x.report("Embed shortcut 2")   { use_shortcut2 }
-  x.report("Embed eRubi")        { use_erubi }
+  x.report("erb directly")   { $esrc.erb_direct;     $usrc.erb_direct     }
+  x.report("erb shortcut")   { $esrc.erb_shortcut;   $usrc.erb_shortcut   }
+  x.report("erubi directly") { $esrc.erubi_direct;   $usrc.erubi_direct   }
+  x.report("erubi shortcut") { $esrc.erubi_shortcut; $usrc.erubi_shortcut }
 
   x.compare!
 end
 
+# Lines = 1
+#
 # Comparison:
-#     Embed shortcut 2:      474.1 i/s
-#     Embed shortcut 1:      472.2 i/s - same-ish: difference falls within error
-#          Embed eRubi:      453.1 i/s - 1.05x  slower
-#       Embed directly:      408.2 i/s - 1.16x  slower
+#       erubi shortcut:    18984.6 i/s
+#         erb shortcut:    13909.9 i/s - 1.36x  slower
+#       erubi directly:    12005.5 i/s - 1.58x  slower
+#         erb directly:     8154.1 i/s - 2.33x  slower
 
-# Conclusion: Well I guess I will stick to plain old erb!
+# Lines = 10
+#
+# Comparison:
+#       erubi shortcut:     4319.1 i/s
+#         erb shortcut:     3838.2 i/s - 1.13x  slower
+#       erubi directly:     3591.8 i/s - 1.20x  slower
+#         erb directly:     2923.2 i/s - 1.48x  slower
+
+# Lines = 100
+#
+# Comparison:
+#       erubi shortcut:      493.3 i/s
+#         erb shortcut:      472.1 i/s - 1.05x  slower
+#       erubi directly:      451.6 i/s - 1.09x  slower
+#         erb directly:      408.3 i/s - 1.21x  slower
+
+# Lines = 1000
+#
+# Comparison:
+#         erb shortcut:       48.0 i/s
+#         erb directly:       42.7 i/s - 1.12x  slower
+#       erubi shortcut:       39.3 i/s - 1.22x  slower
+#       erubi directly:       38.4 i/s - 1.25x  slower
+
+# Conclusions:
+#  - For very long texts, erb is better than erubi.
+#  - 1000 lines is only 400 times slower than 1 line.
+#  - Simplicity wins. I will stick to plain old erb!
