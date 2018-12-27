@@ -4,54 +4,87 @@ require 'erubi'
 
 x     = 42
 $env  = binding
-lines = 1000
+
+if ARGV[0] == 't'
+  lines = 1
+else
+  lines = 1000
+end
 
 puts "Lines = #{lines}", ""
 
-$esrc = "The answer to life, the universe and everything is <%= x %>\n" * lines
-$hsrc = "The answer to life, the universe and everything is {{ x }}\n" * lines
-$usrc = "The answer to life, the universe and everything is 21\n"  * lines
+$esrc = "The answer to life, the \\<\\%universe\\%\\> and everything is <%= x %>\n" * lines
+$hsrc = "The answer to life, the \\{\\{universe\\}\\} and everything is {{ x }}\n" * lines
+$usrc = "The answer to life, the \\<\\%universe\\%\\> and everything is 21\n"  * lines
 
 class String
 
   def erb_direct
-    ERB.new(self).result($env)
+    ERB.new(self).result($env).escape_text
   end
 
   def erb_shortcut
-    self['<%'] ? ERB.new(self).result($env) : self
+    (self['<%'] ? ERB.new(self).result($env) : self).escape_text
   end
 
   def erubi_direct
-    $env.eval(Erubi::Engine.new(self).src)
+    ($env.eval(Erubi::Engine.new(self).src).escape_text).escape_text
   end
 
   def erubi_shortcut
-    self['<%'] ?  $env.eval(Erubi::Engine.new(self).src) : self
+    (self['<%'] ? $env.eval(Erubi::Engine.new(self).src) : self).escape_text
   end
 
   def handlebar
-    temp, text = self, ""
-    buffer = []
+    string, text, buffer = self, "", []
 
-    until temp.empty?
-      text, code, temp = temp.partition(/{{.*?}}/m)
+    until string.empty?
+      text, code, string = string.partition(/{{.*?}}/m)
 
-      buffer << "_hresult << #{text.inspect};" unless text.empty?
-      buffer << "_hresult << #{code[2...-2]}.to_s;" unless code.empty?
+      unless text.empty?
+        text = text.escape_text
+        buffer << "_m_<<#{text.inspect};"
+      end
+
+      unless code.empty?
+        if code[-3] == "#"
+          buffer << "#{code[2...-3]};"
+        else
+          buffer << "_m_<<#{code[2...-2]}.to_s;"
+        end
+      end
     end
 
     if buffer.length > 1
-      $env.eval("_hresult = '';" + buffer.join + "_hresult")
+      $env.eval("_m_ = '';" + buffer.join + "_m_")
     else
       text
     end
   end
 
+  def escape_text
+    gsub(/\\./) {|found| found[1] || "\\"}
+  end
 end
 
-#puts $hsrc.handlebar
-#exit
+# Use an arg of 't' to test for correct output.
+if ARGV[0] == 't'
+  puts $usrc.erb_direct
+  puts $esrc.erb_direct
+
+  puts $usrc.erb_shortcut
+  puts $esrc.erb_shortcut
+
+  puts $usrc.erubi_direct
+  puts $esrc.erubi_direct
+
+  puts $usrc.erubi_shortcut
+  puts $esrc.erubi_shortcut
+
+  puts $usrc.handlebar
+  puts $hsrc.handlebar
+  exit
+end
 
 Benchmark.ips do |x|
   x.report("erb directly")   { $esrc.erb_direct;     $usrc.erb_direct     }
@@ -66,36 +99,40 @@ end
 # Lines = 1
 #
 # Comparison:
-#       erubi shortcut:    18984.6 i/s
-#         erb shortcut:    13909.9 i/s - 1.36x  slower
-#       erubi directly:    12005.5 i/s - 1.58x  slower
-#         erb directly:     8154.1 i/s - 2.33x  slower
+#            handlebar:    19682.6 i/s
+#       erubi shortcut:    12561.3 i/s - 1.57x  slower
+#         erb shortcut:    11494.7 i/s - 1.71x  slower
+#       erubi directly:     8638.1 i/s - 2.28x  slower
+#         erb directly:     7098.5 i/s - 2.77x  slower
 
 # Lines = 10
 #
 # Comparison:
-#       erubi shortcut:     4319.1 i/s
-#         erb shortcut:     3838.2 i/s - 1.13x  slower
-#       erubi directly:     3591.8 i/s - 1.20x  slower
-#         erb directly:     2923.2 i/s - 1.48x  slower
+#            handlebar:     3984.4 i/s
+#         erb shortcut:     2935.9 i/s - 1.36x  slower
+#       erubi shortcut:     2629.4 i/s - 1.52x  slower
+#         erb directly:     2346.4 i/s - 1.70x  slower
+#       erubi directly:     2109.8 i/s - 1.89x  slower
 
 # Lines = 100
 #
 # Comparison:
-#       erubi shortcut:      493.3 i/s
-#         erb shortcut:      472.1 i/s - 1.05x  slower
-#       erubi directly:      451.6 i/s - 1.09x  slower
-#         erb directly:      408.3 i/s - 1.21x  slower
+#            handlebar:      452.3 i/s
+#         erb shortcut:      355.5 i/s - 1.27x  slower
+#         erb directly:      311.3 i/s - 1.45x  slower
+#       erubi shortcut:      295.8 i/s - 1.53x  slower
+#       erubi directly:      253.4 i/s - 1.78x  slower
 
 # Lines = 1000
 #
 # Comparison:
-#         erb shortcut:       48.0 i/s
-#         erb directly:       42.7 i/s - 1.12x  slower
-#       erubi shortcut:       39.3 i/s - 1.22x  slower
-#       erubi directly:       38.4 i/s - 1.25x  slower
+#            handlebar:       46.5 i/s
+#         erb shortcut:       36.9 i/s - 1.26x  slower
+#         erb directly:       32.5 i/s - 1.43x  slower
+#       erubi shortcut:       26.0 i/s - 1.79x  slower
+#       erubi directly:       22.6 i/s - 2.06x  slower
 
-# Conclusions:
-#  - For very long texts, erb is better than erubi.
-#  - 1000 lines is only 400 times slower than 1 line.
-#  - Simplicity wins. I will stick to plain old erb!
+#=======================================================
+# Conclusion: The handlebar code looks pretty good!
+#             Not only is it fastest, it is consistent.
+#=======================================================
