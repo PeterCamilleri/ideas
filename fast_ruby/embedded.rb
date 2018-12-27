@@ -5,13 +5,12 @@ require 'erubi'
 x     = 42
 $env  = binding
 
-if ARGV[0] == 't'
+if ARGV[0]
   lines = 1
 else
   lines = 10000
+  puts "Lines = #{lines}", ""
 end
-
-puts "Lines = #{lines}", ""
 
 $esrc = "The answer to life, the \\<\\%universe\\%\\> and everything is <%= x %>\n" * lines
 $hsrc = "The answer to life, the \\{\\{universe\\}\\} and everything is {{ x }}\n" * lines
@@ -50,10 +49,12 @@ class String
         if code[-3] == "#"
           buffer << "#{code[2...-3]};"
         else
-          buffer << "_m_<<#{code[2...-2]}.to_s;"
+          buffer << "_m_<<(#{code[2...-2]}).to_s;"
         end
       end
     end
+
+    # puts buffer
 
     if buffer.length > 1
       $env.eval("_m_ = '';" + buffer.join + "_m_")
@@ -84,6 +85,22 @@ if ARGV[0] == 't'
   puts $usrc.handlebar
   puts $hsrc.handlebar
   exit
+end
+
+# Use an arg of 'h' for another test.
+if ARGV[0] == 'h'
+
+src = <<-EOF
+  So now we can begin
+  {{ 10.times { |i| #}}
+  The value of x is: {{ x+i }}
+  {{ } #}}
+  {{ "Hello" }}
+EOF
+
+  puts src.handlebar
+  exit
+
 end
 
 Benchmark.ips do |x|
