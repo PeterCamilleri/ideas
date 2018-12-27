@@ -8,7 +8,7 @@ $env  = binding
 if ARGV[0] == 't'
   lines = 1
 else
-  lines = 1000
+  lines = 10000
 end
 
 puts "Lines = #{lines}", ""
@@ -131,6 +131,15 @@ end
 #         erb directly:       32.5 i/s - 1.43x  slower
 #       erubi shortcut:       26.0 i/s - 1.79x  slower
 #       erubi directly:       22.6 i/s - 2.06x  slower
+
+# Lines = 10000
+#
+# Comparison:
+#            handlebar:        4.3 i/s
+#         erb shortcut:        3.4 i/s - 1.25x  slower
+#         erb directly:        3.0 i/s - 1.42x  slower
+#       erubi shortcut:        1.1 i/s - 3.99x  slower
+#       erubi directly:        1.0 i/s - 4.26x  slower
 
 #=======================================================
 # Conclusion: The handlebar code looks pretty good!
