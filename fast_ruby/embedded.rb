@@ -28,7 +28,7 @@ class String
   end
 
   def erubi_direct
-    ($env.eval(Erubi::Engine.new(self).src).escape_text).escape_text
+    $env.eval(Erubi::Engine.new(self).src).escape_text
   end
 
   def erubi_shortcut
@@ -63,7 +63,7 @@ class String
   end
 
   def escape_text
-    gsub(/\\./) {|found| found[1] || "\\"}
+    gsub(/\\\S/) {|found| found[1]}
   end
 end
 
