@@ -9,6 +9,7 @@ lines = 1000
 puts "Lines = #{lines}", ""
 
 $esrc = "The answer to life, the universe and everything is <%= x %>\n" * lines
+$hsrc = "The answer to life, the universe and everything is {{ x }}\n" * lines
 $usrc = "The answer to life, the universe and everything is 21\n"  * lines
 
 class String
@@ -29,13 +30,35 @@ class String
     self['<%'] ?  $env.eval(Erubi::Engine.new(self).src) : self
   end
 
+  def handlebar
+    temp, text = self, ""
+    buffer = []
+
+    until temp.empty?
+      text, code, temp = temp.partition(/{{.*?}}/m)
+
+      buffer << "_hresult << #{text.inspect};" unless text.empty?
+      buffer << "_hresult << #{code[2...-2]}.to_s;" unless code.empty?
+    end
+
+    if buffer.length > 1
+      $env.eval("_hresult = '';" + buffer.join + "_hresult")
+    else
+      text
+    end
+  end
+
 end
+
+#puts $hsrc.handlebar
+#exit
 
 Benchmark.ips do |x|
   x.report("erb directly")   { $esrc.erb_direct;     $usrc.erb_direct     }
   x.report("erb shortcut")   { $esrc.erb_shortcut;   $usrc.erb_shortcut   }
   x.report("erubi directly") { $esrc.erubi_direct;   $usrc.erubi_direct   }
   x.report("erubi shortcut") { $esrc.erubi_shortcut; $usrc.erubi_shortcut }
+  x.report("handlebar")      { $hsrc.handlebar;      $usrc.handlebar }
 
   x.compare!
 end
