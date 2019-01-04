@@ -164,18 +164,21 @@ Dir[File.dirname(__FILE__) + '/players/*.rb'].each {|file| require file }
 # Display the Ruby configuration data.
 RbConfig::CONFIG.keys.sort.each {|k| puts "#{k} => #{RbConfig::CONFIG[k]}"}; nil
 
+GET - /api/v1/gems/[GEM NAME].(json|yaml)
 
 https://rubygems.org/api/v1/downloads/minitest_visible-0.1.2.json
 
 http://bestgems.org//api/v1/gems/full_dup/total_downloads.json
 
-http://rubygems.org//api/v1/full_dup/total_downloads-0.0.5.json   << bogus
 
 https://rubygems.org/api/v1/downloads/full_dup-0.0.5.json
 https://rubygems.org/api/v1/versions/full_dup.json
 https://rubygems.org/api/v1/versions/full_dup/latest.json
+https://rubygems.org/api/v1/versions/gosu/latest.json   # It works!
 
 https://rubygems.org/api/v1/gems/flex_array/reverse_dependencies.json
+https://rubygems.org/api/v1/gems/mini_readline/reverse_dependencies.json
+https://rubygems.org/api/v1/gems/rails/reverse_dependencies.json
 https://rubygems.org/api/v1/gems/full_dup/reverse_dependencies.json
 https://rubygems.org/api/v1/gems/ruby_sscanf/reverse_dependencies.json
 
@@ -233,6 +236,4 @@ C:\Sites>ruby -e"p RubyVM::OPTS"
 Pithy sayings and profound quotes:
 
 The Tyranny of Brittle Code
-
-
 
