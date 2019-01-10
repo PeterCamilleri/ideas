@@ -1,20 +1,10 @@
 require "benchmark/ips"
 require 'erb'
 require 'erubi'
+require 'pp'
 
 x     = 42
 $env  = binding
-
-if ARGV[0]
-  lines = 1
-else
-  lines = 10000
-  puts "Lines = #{lines}", ""
-end
-
-$esrc = "The answer to life, the \\<\\%universe\\%\\> and everything is <%= x %>\n" * lines
-$hsrc = "The answer to life, the \\{\\{universe\\}\\} and everything is {{ x }}\n" * lines
-$usrc = "The answer to life, the \\<\\%universe\\%\\> and everything is 21\n"  * lines
 
 class String
 
@@ -40,9 +30,11 @@ class String
     until string.empty?
       text, code, string = string.partition(/{{.*?}}/m)
 
-      unless text.empty?
+      if not text.empty?
         text = text.escape_text
         buffer << "_m_<<#{text.inspect};"
+      elsif buffer.empty?
+        buffer << ""
       end
 
       unless code.empty?
@@ -53,8 +45,6 @@ class String
         end
       end
     end
-
-    # puts buffer
 
     if buffer.length > 1
       $env.eval("_m_ = '';" + buffer.join + "_m_")
@@ -68,95 +58,75 @@ class String
   end
 end
 
-# Use an arg of 't' to test for correct output.
-if ARGV[0] == 't'
-  puts $usrc.erb_direct
-  puts $esrc.erb_direct
+work_list = [1, 10, 100, 1000, 10000]
 
-  puts $usrc.erb_shortcut
-  puts $esrc.erb_shortcut
+Item = Struct.new(:data, :work)
 
-  puts $usrc.erubi_direct
-  puts $esrc.erubi_direct
+items = { "erb directly"   => Item.new([], Proc.new { $esrc.erb_direct;     $usrc.erb_direct     }),
+          "erb shortcut"   => Item.new([], Proc.new { $esrc.erb_shortcut;   $usrc.erb_shortcut   }),
+          "erubi directly" => Item.new([], Proc.new { $esrc.erubi_direct;   $usrc.erubi_direct   }),
+          "erubi shortcut" => Item.new([], Proc.new { $esrc.erubi_shortcut; $usrc.erubi_shortcut }),
+          "handlebar"      => Item.new([], Proc.new { $hsrc.handlebar;      $usrc.handlebar })
+         }
 
-  puts $usrc.erubi_shortcut
-  puts $esrc.erubi_shortcut
 
-  puts $usrc.handlebar
-  puts $hsrc.handlebar
-  exit
+work_list.each do |lines|
+
+  puts "Lines = #{lines}",""
+
+  $esrc = "The answer to life, the \\<\\%universe\\%\\> and everything is <%= x %>\n" * lines
+  $hsrc = "The answer to life, the \\{\\{universe\\}\\} and everything is {{ x }}\n" * lines
+  $usrc = "The answer to life, the \\<\\%universe\\%\\> and everything is 21\n"  * lines
+
+  # Use an arg of 't' to test for correct output.
+  if ARGV[0] == 't'
+    puts $usrc.erb_direct
+    puts $esrc.erb_direct
+
+    puts $usrc.erb_shortcut
+    puts $esrc.erb_shortcut
+
+    puts $usrc.erubi_direct
+    puts $esrc.erubi_direct
+
+    puts $usrc.erubi_shortcut
+    puts $esrc.erubi_shortcut
+
+    puts $usrc.handlebar
+    puts $hsrc.handlebar
+    exit
+  end
+
+  report = Benchmark.ips do |x|
+
+    items.each do |name, item|
+      x.report(name, &item.work)
+    end
+
+    x.compare!
+
+  end
+
+  fastest = -1.0
+
+  report.data.each do |test_result|
+    fastest = test_result[:ips] if test_result[:ips] > fastest
+  end
+
+  report.data.each do |test_result|
+    name = test_result[:name]
+    ips  = test_result[:ips]
+    items[name].data << fastest/ips
+  end
+
 end
 
-# Use an arg of 'h' for another test.
-if ARGV[0] == 'h'
-
-src = <<-EOF
-  So now we can begin
-  {{ 10.times { |i| #}}
-  The value of x is: {{ x+i }}
-  {{ } #}}
-  {{ "Hello" }}
-EOF
-
-  puts src.handlebar
-  exit
-
+items.each do |name, item|
+  puts name, item.data, ""
 end
 
-Benchmark.ips do |x|
-  x.report("erb directly")   { $esrc.erb_direct;     $usrc.erb_direct     }
-  x.report("erb shortcut")   { $esrc.erb_shortcut;   $usrc.erb_shortcut   }
-  x.report("erubi directly") { $esrc.erubi_direct;   $usrc.erubi_direct   }
-  x.report("erubi shortcut") { $esrc.erubi_shortcut; $usrc.erubi_shortcut }
-  x.report("handlebar")      { $hsrc.handlebar;      $usrc.handlebar }
 
-  x.compare!
-end
 
-# Lines = 1
-#
-# Comparison:
-#            handlebar:    19682.6 i/s
-#       erubi shortcut:    12561.3 i/s - 1.57x  slower
-#         erb shortcut:    11494.7 i/s - 1.71x  slower
-#       erubi directly:     8638.1 i/s - 2.28x  slower
-#         erb directly:     7098.5 i/s - 2.77x  slower
-
-# Lines = 10
-#
-# Comparison:
-#            handlebar:     3984.4 i/s
-#         erb shortcut:     2935.9 i/s - 1.36x  slower
-#       erubi shortcut:     2629.4 i/s - 1.52x  slower
-#         erb directly:     2346.4 i/s - 1.70x  slower
-#       erubi directly:     2109.8 i/s - 1.89x  slower
-
-# Lines = 100
-#
-# Comparison:
-#            handlebar:      452.3 i/s
-#         erb shortcut:      355.5 i/s - 1.27x  slower
-#         erb directly:      311.3 i/s - 1.45x  slower
-#       erubi shortcut:      295.8 i/s - 1.53x  slower
-#       erubi directly:      253.4 i/s - 1.78x  slower
-
-# Lines = 1000
-#
-# Comparison:
-#            handlebar:       46.5 i/s
-#         erb shortcut:       36.9 i/s - 1.26x  slower
-#         erb directly:       32.5 i/s - 1.43x  slower
-#       erubi shortcut:       26.0 i/s - 1.79x  slower
-#       erubi directly:       22.6 i/s - 2.06x  slower
-
-# Lines = 10000
-#
-# Comparison:
-#            handlebar:        4.3 i/s
-#         erb shortcut:        3.4 i/s - 1.25x  slower
-#         erb directly:        3.0 i/s - 1.42x  slower
-#       erubi shortcut:        1.1 i/s - 3.99x  slower
-#       erubi directly:        1.0 i/s - 4.26x  slower
 
 #=======================================================
 # Conclusion: The handlebar code looks pretty good!
