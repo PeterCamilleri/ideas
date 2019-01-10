@@ -8,19 +8,19 @@ $env  = binding
 
 class String
 
-  def erb_direct
+  def erb_d
     ERB.new(self).result($env).escape_text
   end
 
-  def erb_shortcut
+  def erb_s
     (self['<%'] ? ERB.new(self).result($env) : self).escape_text
   end
 
-  def erubi_direct
+  def erubi_d
     $env.eval(Erubi::Engine.new(self).src).escape_text
   end
 
-  def erubi_shortcut
+  def erubi_s
     (self['<%'] ? $env.eval(Erubi::Engine.new(self).src) : self).escape_text
   end
 
@@ -62,11 +62,16 @@ work_list = [1, 10, 100, 1000, 10000]
 
 Item = Struct.new(:data, :work)
 
-items = { "erb directly"   => Item.new([], Proc.new { $esrc.erb_direct;     $usrc.erb_direct     }),
-          "erb shortcut"   => Item.new([], Proc.new { $esrc.erb_shortcut;   $usrc.erb_shortcut   }),
-          "erubi directly" => Item.new([], Proc.new { $esrc.erubi_direct;   $usrc.erubi_direct   }),
-          "erubi shortcut" => Item.new([], Proc.new { $esrc.erubi_shortcut; $usrc.erubi_shortcut }),
-          "handlebar"      => Item.new([], Proc.new { $hsrc.handlebar;      $usrc.handlebar })
+items = { "erb directly"   =>
+            Item.new([], Proc.new { $esrc.erb_d;     $usrc.erb_d     }),
+          "erb shortcut"   =>
+            Item.new([], Proc.new { $esrc.erb_s;     $usrc.erb_s     }),
+          "erubi directly" =>
+            Item.new([], Proc.new { $esrc.erubi_d;   $usrc.erubi_d   }),
+          "erubi shortcut" =>
+            Item.new([], Proc.new { $esrc.erubi_s;   $usrc.erubi_s   }),
+          "handlebar"      =>
+            Item.new([], Proc.new { $hsrc.handlebar; $usrc.handlebar })
          }
 
 
@@ -80,17 +85,17 @@ work_list.each do |lines|
 
   # Use an arg of 't' to test for correct output.
   if ARGV[0] == 't'
-    puts $usrc.erb_direct
-    puts $esrc.erb_direct
+    puts $usrc.erb_d
+    puts $esrc.erb_d
 
-    puts $usrc.erb_shortcut
-    puts $esrc.erb_shortcut
+    puts $usrc.erb_s
+    puts $esrc.erb_s
 
-    puts $usrc.erubi_direct
-    puts $esrc.erubi_direct
+    puts $usrc.erubi_d
+    puts $esrc.erubi_d
 
-    puts $usrc.erubi_shortcut
-    puts $esrc.erubi_shortcut
+    puts $usrc.erubi_s
+    puts $esrc.erubi_s
 
     puts $usrc.handlebar
     puts $hsrc.handlebar
