@@ -64,3 +64,25 @@ end
 #    Test with and alt:     6509.6 i/s - 1.43x slower
 #    Test with bit alt:     5962.8 i/s - 1.57x slower
 
+# Tested under: ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+#
+# Warming up --------------------------------------
+#       Test with odd?   873.000  i/100ms
+#        Test with and   807.000  i/100ms
+#    Test with and alt   665.000  i/100ms
+#        Test with bit   784.000  i/100ms
+#    Test with bit alt   641.000  i/100ms
+# Calculating -------------------------------------
+#       Test with odd?      9.648k (± 0.4%) i/s -     48.888k in   5.067404s
+#        Test with and      8.227k (± 0.3%) i/s -     41.157k in   5.002567s
+#    Test with and alt      6.584k (± 0.2%) i/s -     33.250k in   5.050125s
+#        Test with bit      7.515k (± 0.3%) i/s -     37.632k in   5.007457s
+#    Test with bit alt      6.605k (± 0.2%) i/s -     33.332k in   5.046793s
+#
+# Comparison:
+#       Test with odd?:     9647.7 i/s
+#        Test with and:     8227.3 i/s - 1.17x  slower
+#        Test with bit:     7515.3 i/s - 1.28x  slower
+#    Test with bit alt:     6604.6 i/s - 1.46x  slower
+#    Test with and alt:     6584.0 i/s - 1.47x  slower
+
