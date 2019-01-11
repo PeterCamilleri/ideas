@@ -26,3 +26,16 @@ end
 # Comparison:
 # Build with Array.new:   658763.5 i/s
 #     Build with times:   415884.3 i/s - 1.58x slower
+
+# Tested under: ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+#
+# Warming up --------------------------------------
+# Build with Array.new    27.901k i/100ms
+#     Build with times    21.706k i/100ms
+# Calculating -------------------------------------
+# Build with Array.new    681.959k (± 1.8%) i/s -      3.432M in   5.034243s
+#     Build with times    417.166k (± 0.7%) i/s -      2.105M in   5.047357s
+#
+# Comparison:
+# Build with Array.new:   681958.5 i/s
+#     Build with times:   417165.7 i/s - 1.63x  slower
