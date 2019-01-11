@@ -34,3 +34,20 @@ end
 # Comparison:
 # Rotate with conditional restore:    23112.9 i/s
 # Rotate with shift restore:    17990.0 i/s - 1.28x slower
+
+# Tested under: ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+#
+# Warming up --------------------------------------
+# Rotate with shift restore
+#                          1.797k i/100ms
+# Rotate with conditional restore
+#                          2.053k i/100ms
+# Calculating -------------------------------------
+# Rotate with shift restore
+#                          18.899k (± 0.3%) i/s -     95.241k in   5.039391s
+# Rotate with conditional restore
+#                          22.367k (± 1.0%) i/s -    112.915k in   5.048839s
+#
+# Comparison:
+# Rotate with conditional restore:    22367.0 i/s
+# Rotate with shift restore:    18899.4 i/s - 1.18x  slower
