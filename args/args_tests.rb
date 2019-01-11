@@ -16,12 +16,11 @@ def meth(a=nil, b=nil)
   puts "arg_a = #{arg_a}, arg_b = #{arg_b}"
 end
 
-meth
+meth               # arg_a = default_a, arg_b = default_b
 
-meth(19)
+meth(19)           # arg_a = 19, arg_b = default_b
 
-meth(a: 20, b: 44)
+meth(a: 20, b: 44) # arg_a = 20, arg_b = 44
 
-meth(b: 44)
-
+meth(b: 44)        # arg_a = default_a, arg_b = 44
 
