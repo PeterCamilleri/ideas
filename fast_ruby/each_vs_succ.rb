@@ -37,3 +37,19 @@ end
 #      Count with succ:    14456.8 i/s
 #      Count with += 1:    13306.5 i/s - 1.09x slower
 #      Count with each:     2091.1 i/s - 6.91x slower
+
+# Tested under: ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+#
+# Warming up --------------------------------------
+#      Count with each   236.000  i/100ms
+#      Count with succ     1.365k i/100ms
+#      Count with += 1     1.320k i/100ms
+# Calculating -------------------------------------
+#      Count with each      2.400k (± 0.4%) i/s -     12.036k in   5.015647s
+#      Count with succ     14.427k (± 0.7%) i/s -     72.345k in   5.014734s
+#      Count with += 1     13.567k (± 0.4%) i/s -     68.640k in   5.059581s
+#
+# Comparison:
+#      Count with succ:    14427.2 i/s
+#      Count with += 1:    13566.5 i/s - 1.06x  slower
+#      Count with each:     2399.7 i/s - 6.01x  slower
