@@ -1,0 +1,19 @@
+# A BNF Grammar for Sample Configuration File Grammar.
+
+begin Config_Specification
+
+pragma version "0.0.1"
+
+<config>     = <statement>*
+
+<statement>  = (<identifier> "=" <value>)? /$/
+
+<identifier> = /[a-z][a-z0-9_]*/
+
+<value>      = <number> | <string>
+
+<number>     = /[0-9]+/
+
+<string>     = /"((\\")|[^"])*"/
+
+end
