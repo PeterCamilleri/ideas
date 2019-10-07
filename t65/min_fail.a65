@@ -8,5 +8,5 @@
 .code
 
 _main:
-  lda #0
+  lda #$ff
   jmp exit
