@@ -272,4 +272,51 @@ HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\She
 
 New -> String Value "FolderType " -> Data "NotSpecified"
 
+Amazing video on virtual machine design for the 6502
 
+https://youtu.be/zdJnz6-d060
+https://github.com/AcheronVM/acheronvm
+
+* Utility macros to round out some of the rough edges, especially when dealing
+with 16 bit data variables and pointers.
+* Useful routines of a larger sort. Ideas include stack emulation, bank
+management, heap management, and "drivers" for custom add on devices.
+* The design of threaded interpreter languages (TIL) for the W65C02S. While
+normally associated with the FORTH language, TILs are a powerful technique that
+may be used to implement almost any language. The Great Grand Daddy of this is
+the Sweet-16 virtual machine written by Steve Wozniak and described in Byte
+magazine issue of
+[**November 1977**](https://archive.org/details/byte-magazine-1977-11).
+
+ca65 --list-bytes 0 -l SW16/sweet_16.lst SW16/sweet_16.a65
+ca65 -D sw16_sim_support --list-bytes 0 -l SW16/sweet_16.lst SW16/sweet_16.a65
+
+ca65                     SW16/sweet_16.a65
+ca65 -D sw16_sim_support SW16/sweet_16.a65
+
+
+test65 -l -v t65/t65_sweet_16.a65
+
+AZ Shopping List
+
+Crumpets, Plum Sauce, Mars Bars, Smarties, Aero Bars, Coffee Crisp,
+Montreal-Style Bagels, Yorkie, Mackintosh "MACK" Toffee, Sweet Marie
+Butter Tarts,
+
+Bring back
+
+White Zinfandel Wine, Colorful fountain pens
+
+Gypsy
+Sherlock Holmes and The Raven's Curse
+Charley's Aunt
+Prince Caspian
+Me and My Girl
+
+I have a buyer but will keep you in mind in case they bail.
+No matter, I have a new buyer
+Sorry about all the churn. If you have a truck, you can have this!
+
+10 Bassett Blvd, Unit 65, Whitby
+
+https://archive.org/search.php?query=The+Computer+Journal&page=1
