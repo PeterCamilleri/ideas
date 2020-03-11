@@ -320,3 +320,7 @@ Sorry about all the churn. If you have a truck, you can have this!
 10 Bassett Blvd, Unit 65, Whitby
 
 https://archive.org/search.php?query=The+Computer+Journal&page=1
+
+
+Torvalds sarcastically said: "I'm an egotistical bastard, and I name all my 
+projects after myself. First 'Linux', now 'git'."
