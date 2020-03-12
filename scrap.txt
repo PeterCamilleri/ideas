@@ -322,5 +322,17 @@ Sorry about all the churn. If you have a truck, you can have this!
 https://archive.org/search.php?query=The+Computer+Journal&page=1
 
 
-Torvalds sarcastically said: "I'm an egotistical bastard, and I name all my 
+Torvalds sarcastically said: "I'm an egotistical bastard, and I name all my
 projects after myself. First 'Linux', now 'git'."
+
+Could these be converted into qr codes?
+
+https://git-scm.com/
+
+https://github.com/PeterCamilleri/ideas/blob/master/Talks/DPCUC_Talk_20_03_12.pdf
+
+https://www.youtube.com/results?search_query=git+tutorial
+
+https://www.youtube.com/watch?v=WbwIoQYP6no
+
+https://www.youtube.com/watch?v=USjZcfj8yxE
