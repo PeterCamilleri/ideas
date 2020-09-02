@@ -98,61 +98,6 @@ task :alt_test do |t|
   system "ruby -e\"#{code}\""
 end
 
-
-
-======================================================
-
-Common test file boilerplate.
-
-require_relative '../lib/<<<name>>>'
-gem              'minitest'
-require          'minitest/autorun'
-require          'minitest_visible'
-
-class <<<name>>>Tester < Minitest::Test
-
-  #Track mini-test progress.
-  include MinitestVisible
-
-  def test_that_it_has_a_version_number
-    refute_nil(::<<<name>>>::VERSION)
-    assert(::<<<name>>>::VERSION.frozen?)
-    assert(::<<<name>>>::VERSION.is_a?(String))
-    assert(/\A\d+\.\d+\.\d+/ =~ ::<<<name>>>::VERSION)
-  end
-
-  # More tests go here.
-end
-
-======================================================
-Readme elements:
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
-OR...
-
-* Make a suggestion by raising an
- [issue](https://github.com/PeterCamilleri/<<<name>>>/issues)
-. All ideas and comments are welcome.
-
-## License
-
-The gem is available as open source under the terms of the
-[MIT License](./LICENSE.txt).
-
-## Code of Conduct
-
-Everyone interacting in the <<<name>>> project’s codebases, issue trackers,
-chat rooms and mailing lists is expected to follow the
-[code of conduct](./CODE_OF_CONDUCT.md).
-
-
 ======================================================
 
 Useful utilities:
@@ -196,97 +141,10 @@ uri = URI(url)
 response = Net::HTTP.get(uri)
 JSON.parse(response)
 
-https://en.wikipedia.org/wiki/Read-eval-print_loop
-https://rubygems.org/api/v1/owners/PeterCamilleri/gems.json
-https://rubygems.org/api/v1/search.json?query=fOOrth
-https://rubygems.org/api/v1/search.json?query=fOOrth&page=2
-https://rubygems.org/api/v1/versions/full_dup.json
-https://rubygems.org/api/v1/versions/mini_readline.json
-
 ======================================================
 Some miscellaneous notes:
 
-Removed code from flex_array gem:
 
-  # Make a copy of the other's data.
-  def copy_data(other)
-    fail ArgumentError, "Incompatible data copy." unless compatible?(other)
-    @array_data = other.array_data.dup
-  end
-
-C:\Sites>ruby -e'puts RubyVM::InstructionSequence.compile_option'
-{:inline_const_cache=>true,
- :peephole_optimization=>true,
- :tailcall_optimization=>false,
- :specialized_instruction=>true,
- :operands_unification=>true,
- :instructions_unification=>false,
- :stack_caching=>false,
- :trace_instruction=>true,
- :frozen_string_literal=>false,
- :debug_frozen_string_literal=>false,
- :debug_level=>0
-}
-
-C:\Sites>ruby -e"p RubyVM::OPTS"
-["direct threaded code",
- "operands unification",
- "inline method cache"
-]
-
-
-Pithy sayings and profound quotes:
-
-The Tyranny of Brittle Code
-
-#   About erb:
-
-#   <% Ruby code -- inline with output %>
-#   <%= Ruby expression -- replace with result %>
-#   <%# comment -- ignored -- useful in testing %>
-#   % a line of Ruby code -- treated as <% line %> (optional -- see ERB.new)
-#   %% replaced with % if first thing on a line and % processing is used
-#   <%% or %%> -- replace with <% or %> respectively
-
-98 mysh>=ERB.new("ab<%= a -%>\n efg", nil, '-').result(binding)
-"ab42 efg"
-
-ruby --enable=frozen-string-literal  test\mini_erb_test.rb
-
-## License
-
-The gem is available as open source under the terms of the
-[MIT License](./LICENSE.txt).
-
-## Code of Conduct
-
-Everyone interacting in the fully_freeze project’s codebases, issue trackers,
-chat rooms and mailing lists is expected to follow the
-[code of conduct](./CODE_OF_CONDUCT.md).
-
-
-Saving Windows 7
-
-Regedit.exe
-HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell
-
-New -> String Value "FolderType " -> Data "NotSpecified"
-
-Amazing video on virtual machine design for the 6502
-
-https://youtu.be/zdJnz6-d060
-https://github.com/AcheronVM/acheronvm
-
-* Utility macros to round out some of the rough edges, especially when dealing
-with 16 bit data variables and pointers.
-* Useful routines of a larger sort. Ideas include stack emulation, bank
-management, heap management, and "drivers" for custom add on devices.
-* The design of threaded interpreter languages (TIL) for the W65C02S. While
-normally associated with the FORTH language, TILs are a powerful technique that
-may be used to implement almost any language. The Great Grand Daddy of this is
-the Sweet-16 virtual machine written by Steve Wozniak and described in Byte
-magazine issue of
-[**November 1977**](https://archive.org/details/byte-magazine-1977-11).
 
 ca65 --list-bytes 0 -l SW16/sweet_16.lst SW16/sweet_16.a65
 ca65 -D sw16_sim_support --list-bytes 0 -l SW16/sweet_16.lst SW16/sweet_16.a65
@@ -297,42 +155,32 @@ ca65 -D sw16_sim_support SW16/sweet_16.a65
 
 test65 -l -v t65/t65_sweet_16.a65
 
-AZ Shopping List
-
-Crumpets, Plum Sauce, Mars Bars, Smarties, Aero Bars, Coffee Crisp,
-Montreal-Style Bagels, Yorkie, Mackintosh "MACK" Toffee, Sweet Marie
-Butter Tarts,
-
-Bring back
-
-White Zinfandel Wine, Colorful fountain pens
-
-Gypsy
-Sherlock Holmes and The Raven's Curse
-Charley's Aunt
-Prince Caspian
-Me and My Girl
-
 I have a buyer but will keep you in mind in case they bail.
 No matter, I have a new buyer
 Sorry about all the churn. If you have a truck, you can have this!
 
 10 Bassett Blvd, Unit 65, Whitby
 
-https://archive.org/search.php?query=The+Computer+Journal&page=1
+http://teuthida-technologies.com/?p=1827
+http://teuthida-technologies.com/?p=1833
+
+Bootstrapping Compilers: https://youtu.be/PjeE8Bc96HY
+Improving Compilers: https://youtu.be/TiJn9D6lZ-Y
+Porting Compilers: https://youtu.be/9W0Vxa6eqjA
+
+|  A  |  B  | f(A,B) |
+|:---:|:---:|:------:|
+| = 0 |  X  |   0    |
+| &ne; 0 | = 0 | 0   |
+| &ne; 0 | &ne; 0 | B  |
 
 
-Torvalds sarcastically said: "I'm an egotistical bastard, and I name all my
-projects after myself. First 'Linux', now 'git'."
 
-Could these be converted into qr codes?
 
-https://git-scm.com/
+I am inquiring regarding the roof of Unit 65 at 10 Bassett Blvd in Whitby.
+In order to renew our home insurance policy I need to know when
+the roof was last repaired/replaced.
 
-https://github.com/PeterCamilleri/ideas/blob/master/Talks/DPCUC_Talk_20_03_12.pdf
+I do not know this information. Could you please check the records?
 
-https://www.youtube.com/results?search_query=git+tutorial
-
-https://www.youtube.com/watch?v=WbwIoQYP6no
-
-https://www.youtube.com/watch?v=USjZcfj8yxE
+I can be reached by email at this address or by cell at 289-928-1579
