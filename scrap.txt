@@ -175,12 +175,53 @@ Porting Compilers: https://youtu.be/9W0Vxa6eqjA
 | &ne; 0 | &ne; 0 | B  |
 
 
+Ideas for progress:
+
+Demand for technical know-how is still out there!
+
+Is the 555 still in demand?
+Arduino?
+PIC programming?
+ATTiny programming?
+
+Release tid-bits of knowledge as promotion for a book?
+Perhaps Facebook groups could be found?
+Maybe my website could be useful again?
+
+Releasing a book via kindle unlimited?
+
+https://www.thebalancesmb.com/best-sites-to-find-gig-jobs-4150364
+
+Oct 8, 2020 19:00
+https://us02web.zoom.us/j/85443583727?pwd=VGdrU1lkaVRxYmpscjdSYWdTSUZrZz09
 
 
-I am inquiring regarding the roof of Unit 65 at 10 Bassett Blvd in Whitby.
-In order to renew our home insurance policy I need to know when
-the roof was last repaired/replaced.
+SD Card Videos
+=========================================================
+Explaining SD Cards
+https://www.youtube.com/watch?v=oLQ8A_vcBqU&t=390s
 
-I do not know this information. Could you please check the records?
+SD Card Benchmarks
+https://www.youtube.com/watch?v=YUResed38uo
 
-I can be reached by email at this address or by cell at 289-928-1579
+SD Card Video
+https://www.youtube.com/watch?v=P640j407lPM
+
+Hacking SD Cards
+https://hackaday.com/2013/12/29/hacking-sd-card-flash-memory-controllers/
+https://venturebeat.com/2013/12/30/beware-sd-cards-turns-out-you-can-hack-those-too/
+
+Securing Your SD card ??????
+https://www.techworm.net/2016/12/5-simple-ways-make-sd-card-data-hack-proof.html
+
+Counterfeit SD Cards
+https://duckduckgo.com/?q=counterfeit+sd+card&t=h_&ia=web
+https://www.phonearena.com/news/Beware-of-fake-microSD-cards-Heres-how-to-tell-a-counterfeit-from-the-original_id77769
+https://www.makeuseof.com/tag/how-to-spot-fake-microsd-card/
+https://photographylife.com/fake-memory-cards
+https://www.geckoandfly.com/22803/detect-fake-usb-flash-drives-sd-cards-ssd-disk/
+https://petapixel.com/2018/05/31/beware-amazon-still-sells-counterfeit-memory-cards/
+https://www.raymond.cc/blog/test-and-detect-fake-or-counterfeit-usb-flash-drives-bought-from-ebay-with-h2testw/
+=========================================================
+
+
